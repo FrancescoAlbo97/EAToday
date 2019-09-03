@@ -69,6 +69,25 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         recipes.add(new Recipe("pizza", "30", "facile","economico","vegetariano","ciaociao",pizza));
         recipes.add(new Recipe("aperitivo", "30", "facile","economico","vegetariano","ciaociao",aperitivo));
         recipes.add(new Recipe("pizza", "30", "facile","economico","vegetariano","ciaociao",pizza));
+        recipes.add(new Recipe("pizza", "30", "facile","economico","vegetariano","ciaociao",pizza));
+        recipes.add(new Recipe("pizza", "30", "facile","economico","vegetariano","ciaociao",pizza));
+        recipes.add(new Recipe("aperitivo", "30", "facile","economico","vegetariano","ciaociao",aperitivo));
+        recipes.add(new Recipe("pizza", "30", "facile","economico","vegetariano","ciaociao",pizza));
+        recipes.add(new Recipe("pizza", "30", "facile","economico","vegetariano","ciaociao",pizza));
+        recipes.add(new Recipe("aperitivo", "30", "facile","economico","vegetariano","ciaociao",aperitivo));
+        recipes.add(new Recipe("pizza", "30", "facile","economico","vegetariano","ciaociao",pizza));
+        recipes.add(new Recipe("pizza", "30", "facile","economico","vegetariano","ciaociao",pizza));
+        recipes.add(new Recipe("aperitivo", "30", "facile","economico","vegetariano","ciaociao",aperitivo));
+        recipes.add(new Recipe("pizza", "30", "facile","economico","vegetariano","ciaociao",pizza));
+        recipes.add(new Recipe("pizza", "30", "facile","economico","vegetariano","ciaociao",pizza));
+        recipes.add(new Recipe("aperitivo", "30", "facile","economico","vegetariano","ciaociao",aperitivo));
+        recipes.add(new Recipe("pizza", "30", "facile","economico","vegetariano","ciaociao",pizza));
+        recipes.add(new Recipe("pizza", "30", "facile","economico","vegetariano","ciaociao",pizza));
+        recipes.add(new Recipe("aperitivo", "30", "facile","economico","vegetariano","ciaociao",aperitivo));
+        recipes.add(new Recipe("pizza", "30", "facile","economico","vegetariano","ciaociao",pizza));
+        recipes.add(new Recipe("pizza", "30", "facile","economico","vegetariano","ciaociao",pizza));
+        recipes.add(new Recipe("aperitivo", "30", "facile","economico","vegetariano","ciaociao",aperitivo));
+        recipes.add(new Recipe("pizza", "30", "facile","economico","vegetariano","ciaociao",pizza));
 
         myRecipeAdapter = new RecipeAdapter((Context) MainActivity.this, recipes);
         recyclerViewRecipe.setAdapter(myRecipeAdapter);
