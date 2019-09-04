@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -109,9 +110,10 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
                         return true;
                     case R.id.nav2:
                         menuItem.setChecked(true);
-                        displayMessage("ciao"+menuItem.getItemId());
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(intent);
                         drawerLayout.closeDrawers();
-                        return true;
+                        break;
                     case R.id.nav3:
                         menuItem.setChecked(true);
                         displayMessage("ciao"+menuItem.getItemId());
