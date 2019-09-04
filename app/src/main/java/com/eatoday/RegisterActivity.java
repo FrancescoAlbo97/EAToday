@@ -24,6 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_form);
+        setTitle(R.string.app_name);
 
         name = (EditText) findViewById(R.id.name_input);
         email = (EditText) findViewById(R.id.email_input);
