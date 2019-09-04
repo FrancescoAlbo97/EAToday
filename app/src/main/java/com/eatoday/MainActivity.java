@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.eatoday.model.Recipe;
 import com.eatoday.ui.recipes.RecipeAdapter;
 import com.google.android.material.navigation.NavigationView;
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         recipes.add(new Recipe("aperitivo", "30", "facile","economico","vegetariano","ciaociao",aperitivo));
         recipes.add(new Recipe("pizza", "30", "facile","economico","vegetariano","ciaociao",pizza));
 
-        myRecipeAdapter = new RecipeAdapter((Context) MainActivity.this, recipes);
+        myRecipeAdapter = new RecipeAdapter(this,(Context) MainActivity.this, recipes);
         recyclerViewRecipe.setAdapter(myRecipeAdapter);
 
         drawerLayout = this.findViewById(R.id.drawer_layout);
@@ -145,6 +147,6 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
 
     @Override
     public void onItemClicked(int index) {
-        Toast.makeText(this,"item selected" + recipes.get(index).toString(),Toast.LENGTH_SHORT).show();;
+        Toast.makeText(this,"item selected" + recipes.get(index).toString(),Toast.LENGTH_SHORT).show();
     }
 }

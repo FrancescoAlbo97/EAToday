@@ -1,5 +1,6 @@
 package com.eatoday.ui.recipes;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.eatoday.R;
 import com.eatoday.model.Recipe;
 import com.squareup.picasso.Picasso;
@@ -21,11 +23,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     private ArrayList<Recipe> recipes;
     ItemClicked activity;
     Context context;
+    Activity thisClass;
 
-    public RecipeAdapter(Context context, ArrayList<Recipe> list){
+
+    public RecipeAdapter(Activity thisClass, Context context, ArrayList<Recipe> list){
         this.recipes = list;
         this.activity = (ItemClicked) context;
         this.context = context;
+        this.thisClass = thisClass;
     }
 
     public interface ItemClicked{
@@ -53,7 +58,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     @NonNull
     @Override
     public RecipeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_list_item, parent,false);
         return new ViewHolder(v);
     }
@@ -62,8 +66,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     public void onBindViewHolder(@NonNull RecipeAdapter.ViewHolder holder, int position) {
         holder.itemView.setTag(recipes.get(position));
         holder.tvRecipeName.setText(recipes.get(position).getName());
-        holder.ivImageRecipe.setImageResource(R.drawable.ic_launcher_background);
+        //holder.ivImageRecipe.setImageResource(R.drawable.ic_launcher_background);
         //Picasso.with(context).load(recipes.get(position).getImageUrl()).fit().centerInside().into(holder.ivImageRecipe);
+        //Glide.with(context).load("https://www.mattepuffo.com/blog/images/chip-cube.png").into(holder.ivImageRecipe);
+        Glide.with(thisClass.getApplicationContext())
+                .load("https://lh3.googleusercontent.com/BdQ1ngugnmV6uT960KOX0G9av7YJF4MnoEdSgi5xBINEC4YYuOp3Q7RUj7i4Cg0tRQ=w884")
+                .placeholder(R.drawable.ic_launcher_background)
+                .into(holder.ivImageRecipe);
     }
 
     @Override
