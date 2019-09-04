@@ -62,8 +62,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     public void onBindViewHolder(@NonNull RecipeAdapter.ViewHolder holder, int position) {
         holder.itemView.setTag(recipes.get(position));
         holder.tvRecipeName.setText(recipes.get(position).getName());
-        //holder.ivImageRecipe.setImageResource(rec);
-        Picasso.with(context).load(recipes.get(position).getImageUrl()).fit().centerInside().into(holder.ivImageRecipe);
+        holder.ivImageRecipe.setImageResource(R.drawable.ic_launcher_background);
+        //Picasso.with(context).load(recipes.get(position).getImageUrl()).fit().centerInside().into(holder.ivImageRecipe);
     }
 
     @Override

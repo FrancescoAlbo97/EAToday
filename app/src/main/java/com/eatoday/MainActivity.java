@@ -145,6 +145,6 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
 
     @Override
     public void onItemClicked(int index) {
-
+        Toast.makeText(this,"item selected" + recipes.get(index).toString(),Toast.LENGTH_SHORT).show();;
     }
 }
