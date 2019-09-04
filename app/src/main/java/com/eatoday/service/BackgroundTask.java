@@ -173,6 +173,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                 jsonObject.put("name", name);
                 jsonObject.put("email", email);
                 jsonObject.put("password", password);
+
                 DataOutputStream outputStream = new DataOutputStream(httpURLConnection.getOutputStream());
                 outputStream.write(jsonObject.toString().getBytes(encoding));
 
@@ -186,9 +187,10 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                         stringBuilder.append(line);
                     }
                     //httpURLConnection.disconnect();
-                    Thread.sleep(3000);
-                    return stringBuilder.toString().trim();
+                    Thread.sleep(2000);
+                    return (String) stringBuilder.toString().trim();
                 }
+                httpURLConnection.disconnect();
             } catch (Exception e) {
                 e.printStackTrace();
             }
