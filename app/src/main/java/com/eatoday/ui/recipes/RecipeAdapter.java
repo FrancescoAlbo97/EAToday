@@ -70,7 +70,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         //Picasso.with(context).load(recipes.get(position).getImageUrl()).fit().centerInside().into(holder.ivImageRecipe);
         //Glide.with(context).load("https://www.mattepuffo.com/blog/images/chip-cube.png").into(holder.ivImageRecipe);
         Glide.with(thisClass.getApplicationContext())
-                .load("http://eatoday.altervista.org/dimensioni-immagini-display-563x353.jpg")
+                .load("http://eatoday.altervista.org/images/dimensioni-immagini-display-563x353.jpg")
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(holder.ivImageRecipe);
     }

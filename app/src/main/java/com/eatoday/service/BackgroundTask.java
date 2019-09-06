@@ -22,8 +22,8 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
 
     private Context context;
     private Activity activity;
-    final private String register_URL = "http://eatoday.altervista.org/register.php";
-    final private String login_URL = "http://eatoday.altervista.org/login.php";
+    final private String register_URL = "http://eatoday.altervista.org/access/register.php";
+    final private String login_URL = "http://eatoday.altervista.org/access/login.php";
     final private  String encoding = "UTF-8";
     private AlertDialog.Builder builder;
     private ProgressDialog progressDialog;
@@ -156,6 +156,57 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
             } catch (IOException e) {
                 e.printStackTrace();
             }*/
+            /*
+            try {
+    RequestQueue requestQueue = Volley.newRequestQueue(this);
+    String URL = "http://...";
+    JSONObject jsonBody = new JSONObject();
+    jsonBody.put("Title", "Android Volley Demo");
+    jsonBody.put("Author", "BNK");
+    final String requestBody = jsonBody.toString();
+
+    StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+        @Override
+        public void onResponse(String response) {
+            Log.i("VOLLEY", response);
+        }
+    }, new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            Log.e("VOLLEY", error.toString());
+        }
+    }) {
+        @Override
+        public String getBodyContentType() {
+            return "application/json; charset=utf-8";
+        }
+
+        @Override
+        public byte[] getBody() throws AuthFailureError {
+            try {
+                return requestBody == null ? null : requestBody.getBytes("utf-8");
+            } catch (UnsupportedEncodingException uee) {
+                VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                return null;
+            }
+        }
+
+        @Override
+        protected Response<String> parseNetworkResponse(NetworkResponse response) {
+            String responseString = "";
+            if (response != null) {
+                responseString = String.valueOf(response.statusCode);
+                // can get more details such as response.headers
+            }
+            return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+        }
+    };
+
+    requestQueue.add(stringRequest);
+} catch (JSONException e) {
+    e.printStackTrace();
+}
+             */ //da controlare
             try {
                 URL url =new URL(register_URL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
