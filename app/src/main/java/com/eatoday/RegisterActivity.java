@@ -66,26 +66,12 @@ public class RegisterActivity extends AppCompatActivity {
                     AccessLoader accessLoader = new AccessLoader((Context) RegisterActivity.this);
                     accessLoader.execute("register", name.getText().toString().trim(), email.getText().toString().trim(), password.getText().toString().trim());
                     try {
-                        Thread.sleep(4000);
+                        Thread.sleep(2000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    if (accessLoader.getCode() != null && accessLoader.getCode().equals("register_true")) {
-                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                    } else {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                        builder.setTitle("Something wrong...");
-                        builder.setMessage("Please, try again");
-                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        });
-                        AlertDialog alertDialog = builder.create();
-                        alertDialog.show();
-                    }
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    startActivity(intent);
                 }
             }
         });

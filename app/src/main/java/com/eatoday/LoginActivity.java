@@ -48,22 +48,14 @@ public class LoginActivity extends AppCompatActivity {
                 else {
                     AccessLoader accessLoader = new AccessLoader((Context) LoginActivity.this);
                     accessLoader.execute("login", email.getText().toString().trim(), password.getText().toString().trim());
-                    if(accessLoader.getCode() != null && accessLoader.getCode().equals("login_true")){
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                    }else{
-                        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                        builder.setTitle("Something wrong...");
-                        builder.setMessage("Please, try again");
-                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        });
-                        AlertDialog alertDialog = builder.create();
-                        alertDialog.show();
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+
                 }
             }
         });
