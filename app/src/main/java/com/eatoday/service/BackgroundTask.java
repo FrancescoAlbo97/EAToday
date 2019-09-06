@@ -273,7 +273,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                     while ((line = bufferedReader.readLine()) != null) {
                         stringBuilder.append(line);
                     }
-                    //httpURLConnection.disconnect();
+                    httpURLConnection.disconnect();
                     Thread.sleep(3000);
                     return stringBuilder.toString().trim();
                 }

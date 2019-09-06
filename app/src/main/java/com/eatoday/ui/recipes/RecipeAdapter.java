@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.eatoday.R;
 import com.eatoday.model.Recipe;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 

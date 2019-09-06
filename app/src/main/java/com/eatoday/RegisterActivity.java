@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.eatoday.service.BackgroundTask;
+import com.eatoday.service.AccessLoader;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -63,8 +63,29 @@ public class RegisterActivity extends AppCompatActivity {
                     alertDialog.show();
                 }
                 else {
-                    BackgroundTask backgroundTask = new BackgroundTask((Context) RegisterActivity.this);
-                    backgroundTask.execute("register", name.getText().toString().trim(), email.getText().toString().trim(), password.getText().toString().trim());
+                    AccessLoader accessLoader = new AccessLoader((Context) RegisterActivity.this);
+                    accessLoader.execute("register", name.getText().toString().trim(), email.getText().toString().trim(), password.getText().toString().trim());
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (accessLoader.getCode() != null && accessLoader.getCode().equals("register_true")) {
+                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    } else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                        builder.setTitle("Something wrong...");
+                        builder.setMessage("Please, try again");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }
                 }
             }
         });
