@@ -9,16 +9,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.eatoday.helper.DatabaseHelper;
 import com.eatoday.service.AccessLoader;
+import com.eatoday.util.PreferenceUtils;
+import com.google.android.material.snackbar.Snackbar;
 
 public class LoginActivity extends AppCompatActivity {
 
     EditText email,password;
     Button loginButton;
+    DatabaseHelper databaseHelper = new DatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +53,26 @@ public class LoginActivity extends AppCompatActivity {
                 else {
                     AccessLoader accessLoader = new AccessLoader((Context) LoginActivity.this);
                     accessLoader.execute("login", email.getText().toString().trim(), password.getText().toString().trim());
+
                     try {
                         Thread.sleep(2000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
 
+                    String e = email.getText().toString().trim();
+                    String p = password.getText().toString().trim();
+                    /*
+                    if (!databaseHelper.checkUser(e, p)) {
+                        PreferenceUtils.saveEmail(e, (Context) LoginActivity.this);
+                        PreferenceUtils.savePassword(p, (Context)  LoginActivity.this);
+                        Intent accountsIntent = new Intent(LoginActivity.this, MainActivity.class);
+                        accountsIntent.putExtra("EMAIL", email.getText().toString().trim());
+                        emptyInputEditText();
+                        startActivity(accountsIntent);
+                        finish();
+                    }
+*/
                 }
             }
         });
@@ -71,4 +88,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void emptyInputEditText(){
+        email.setText(null);
+        password.setText(null);
+    }
+
 }

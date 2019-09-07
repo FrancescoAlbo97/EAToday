@@ -38,6 +38,12 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = getIntent();
+        if (intent.hasExtra("EMAIL")){
+            String nameFromIntent = getIntent().getStringExtra("EMAIL");
+            navigationView.getMenu().getItem(0).setTitle("Profilo");
+        }
+
         toolbar = this.findViewById(R.id.toolbar);
         this.setSupportActionBar(toolbar);
 

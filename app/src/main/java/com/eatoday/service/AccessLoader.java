@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 
+import com.eatoday.util.Constant;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,9 +25,6 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
 
     private Context context;
     private Activity activity;
-    final private String URL_REGISTER = "http://eatoday.altervista.org/access/register.php";
-    final private String URL_LOGIN = "http://eatoday.altervista.org/access/login.php";
-    final private String encoding = "UTF-8";
     private AlertDialog.Builder builder;
     private ProgressDialog progressDialog;
 
@@ -51,7 +50,7 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
         try {
             if (method.equals("register")) {
 
-                URL url = new URL(URL_REGISTER);
+                URL url = new URL(Constant.URL_REGISTER);
                 String name = params[1];
                 String email = params[2];
                 String password = params[3];
@@ -64,7 +63,7 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
 
             } else if (method.equals("login")) {
 
-                URL url = new URL(URL_LOGIN);
+                URL url = new URL(Constant.URL_LOGIN);
                 String email = params[1];
                 String password = params[2];
                 JSONObject jsonObject = new JSONObject();
@@ -91,7 +90,7 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
             httpURLConnection.setDoInput(true);
             httpURLConnection.connect();
             DataOutputStream outputStream = new DataOutputStream(httpURLConnection.getOutputStream());
-            outputStream.write(jsonObject.toString().getBytes(encoding));
+            outputStream.write(jsonObject.toString().getBytes(Constant.ENCODING));
 
             int code = httpURLConnection.getResponseCode();
             if (code == 200) {
@@ -167,6 +166,9 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
+
+                //gestire problema di chiusura comunque vada
+
                 activity.finish();
             }
         });
