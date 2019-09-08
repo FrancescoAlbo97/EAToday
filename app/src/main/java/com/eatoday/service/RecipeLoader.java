@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 
+import com.eatoday.model.Recipe;
+import com.eatoday.model.RecipeCollection;
 import com.eatoday.util.Constant;
 
 import org.json.JSONArray;
@@ -20,16 +22,17 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
-public class AccessLoader extends AsyncTask<String, Void, String> {
+public class RecipeLoader extends AsyncTask<String, Void, String> {
 
     private Context context;
     private Activity activity;
     private AlertDialog.Builder builder;
     private ProgressDialog progressDialog;
+    public ArrayList<Recipe> arrayList = new ArrayList<>();
 
-
-    public AccessLoader(Context context) {
+    public RecipeLoader(Context context) {
         this.context = context;
         this.activity = (Activity) context;
     }
@@ -46,52 +49,30 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected String doInBackground(String... params) {
-        String method = params[0];
+    protected String doInBackground(String... getString) {
+
         try {
-            if (method.equals("register")) {
-
-                URL url = new URL(Constant.URL_REGISTER);
-                String name = params[1];
-                String email = params[2];
-                String password = params[3];
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("name", name);
-                jsonObject.put("email", email);
-                jsonObject.put("password", password);
-                String json = connectionResult(url, jsonObject);
-                return json;
-
-            } else if (method.equals("login")) {
-
-                URL url = new URL(Constant.URL_LOGIN);
-                String email = params[1];
-                String password = params[2];
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("email", email);
-                jsonObject.put("password", password);
-                String json = connectionResult(url, jsonObject);
-                return json;
-
-            }
-        } catch (MalformedURLException | JSONException e) {
+            URL url = new URL(Constant.URL_RECIPE + getString[0]);
+            String json = connectionResult(url);
+            RecipeCollection.recipesList = arrayList;
+            return json;
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
-    private String connectionResult(URL url, JSONObject jsonObject) {
+    private String connectionResult(URL url) {
         try {
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setRequestMethod("GET");
             httpURLConnection.setRequestProperty("Content-Type", "application/json");
             httpURLConnection.setRequestProperty("Accept", "application/json");
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setRequestProperty("Connection", "Keep-Alive");
             httpURLConnection.setDoInput(true);
             httpURLConnection.connect();
-            DataOutputStream outputStream = new DataOutputStream(httpURLConnection.getOutputStream());
-            outputStream.write(jsonObject.toString().getBytes(Constant.ENCODING));
 
             int code = httpURLConnection.getResponseCode();
             if (code == 200) {
@@ -105,6 +86,17 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
                 Thread.sleep(2000);
                 httpURLConnection.disconnect();
                 String json = stringBuilder.toString().trim();
+                progressDialog.dismiss();
+
+                JSONArray jsonArray = null;
+                try {
+                    jsonArray = new JSONArray(json);
+                    for(int i=0; i < jsonArray.length(); i++){
+                        arrayList.add(new Recipe(jsonArray.getJSONObject(i).getString("name")));
+                    }
+                } catch (JSONException ex) {
+                    ex.printStackTrace();
+                }
                 return json;
             }
         } catch (Exception e) {
@@ -128,37 +120,25 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
         }
         return null;
     }
-
+/*
     @Override
     protected void onPostExecute(String json) {
         super.onPostExecute(json);
 
         progressDialog.dismiss();
 
+        JSONArray jsonArray = null;
+        ArrayList<Recipe> arrayList = new ArrayList<>();
         try {
-            JSONObject jsonObject = new JSONObject(json);
-            JSONArray jsonArray = jsonObject.getJSONArray("server_response");
-            JSONObject newJsonObject = jsonArray.getJSONObject(0);
-            String code = newJsonObject.getString("code");
-            String message = newJsonObject.getString("message");
-
-            if (code.equals("register_true")){
-                showDialog("Registration success",message,code);
+            jsonArray = new JSONArray(json);
+            for(int i=0; i < jsonArray.length(); i++){
+                arrayList.add(new Recipe(jsonArray.getJSONObject(i).getString("name")));
             }
-            else if(code.equals("register_false")){
-                showDialog("Registration failed",message,code);
-            }
-            else if(code.equals("login_true")){
-                showDialog("Login success",message,code);
-            }
-            else if(code.equals("login_false")){
-                showDialog("Login failed",message,code);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (JSONException ex) {
+            ex.printStackTrace();
         }
-    }
+        RecipeCollection.recipesList = arrayList;
+    }*/
 
     private void showDialog(String title, String message, String code){
         builder.setTitle(title);
