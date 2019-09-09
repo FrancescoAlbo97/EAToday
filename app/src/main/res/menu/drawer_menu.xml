@@ -19,5 +19,9 @@
             android:id="@+id/nav4"
             android:icon="@drawable/ic_launcher_background"
             android:title="@string/menu_4"/>
+        <item
+            android:id="@+id/nav5"
+            android:icon="@drawable/ic_launcher_background"
+            android:title="@string/menu_5l"/>
     </group>
 </menu>

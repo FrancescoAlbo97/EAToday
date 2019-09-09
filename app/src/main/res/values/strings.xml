@@ -5,6 +5,8 @@
     <string name="image_of_each_item">image of each item</string>
     <string name="menu_1">Home</string>
     <string name="menu_2">Login</string>
+    <string name="menu_2l">Profilo</string>
     <string name="menu_3">Filtra ricette</string>
     <string name="menu_4">Progetto</string>
+    <string name="menu_5l">Logout</string>
 </resources>

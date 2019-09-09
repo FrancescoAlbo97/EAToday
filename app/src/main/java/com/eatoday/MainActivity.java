@@ -72,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         //User.setIsLog(true);
         if (User.getIsLog()){
             navigationView.getMenu().findItem(R.id.nav2).setTitle(R.string.app_name);
+        }else{
+            navigationView.getMenu().findItem(R.id.nav5).setVisible(false);
         }
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -96,6 +98,11 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
                         drawerLayout.closeDrawers();
                         return true;
                     case R.id.nav4:
+                        menuItem.setChecked(true);
+                        displayMessage("ciao"+menuItem.getItemId());
+                        drawerLayout.closeDrawers();
+                        return true;
+                    case R.id.nav5:
                         menuItem.setChecked(true);
                         displayMessage("ciao"+menuItem.getItemId());
                         drawerLayout.closeDrawers();
