@@ -9,7 +9,7 @@
 
 
     <androidx.cardview.widget.CardView
-        app:cardBackgroundColor="#D3D3D3"
+        app:cardBackgroundColor="@color/cardview_light_background"
         app:cardCornerRadius="5dp"
         app:cardElevation="5dp"
         app:cardUseCompatPadding="false"
@@ -33,10 +33,9 @@
                 android:layout_marginBottom="@dimen/cardview_default_elevation"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/image_of_each_item"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:textColor="@color/colorIcons"
-
-                tools:srcCompat="@drawable/ic_launcher_background" />
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -48,7 +47,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="NAMEEEE"
                     android:textColor="@color/colorPrimaryText"
                     android:textStyle="bold" />
 
@@ -71,6 +69,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:text="time"
                             android:textColor="@color/colorSecondaryText"/>
 
                         <TextView
@@ -78,6 +77,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:text="type"
                             android:textColor="@color/colorSecondaryText"/>
 
                     </LinearLayout>
@@ -95,6 +95,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:text="price"
                             android:textColor="@color/colorSecondaryText"/>
 
                         <TextView
@@ -102,6 +103,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:text="difficulty"
                             android:textColor="@color/colorSecondaryText"/>
 
 
