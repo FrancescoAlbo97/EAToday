@@ -23,6 +23,7 @@ import com.eatoday.ui.recipes.RecipeAdapter;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 public class MainActivity extends AppCompatActivity implements RecipeAdapter.ItemClicked{
 
@@ -51,16 +52,18 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         layoutManagerRecipe = new LinearLayoutManager(this);
         recyclerViewRecipe.setLayoutManager(layoutManagerRecipe);
 
-        RecipeLoader recipeLoader = new RecipeLoader((Context) MainActivity.this);
+        CountDownLatch latch = new CountDownLatch(1);
+        RecipeLoader recipeLoader = new RecipeLoader((Context) MainActivity.this, latch);
         recipeLoader.execute("");
+
         try {
-            Thread.sleep(10000);
+            latch.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        ArrayList<Recipe> arrayList = new ArrayList<>();
-        arrayList = RecipeCollection.recipesList;
-        myRecipeAdapter = new RecipeAdapter(this,(Context) MainActivity.this, arrayList);
+        //ArrayList<Recipe> arrayList = new ArrayList<>();
+        //arrayList = RecipeCollection.recipesList;
+        myRecipeAdapter = new RecipeAdapter(this,(Context) MainActivity.this, RecipeCollection.recipesList);
         recyclerViewRecipe.setAdapter(myRecipeAdapter);
 
         drawerLayout = this.findViewById(R.id.drawer_layout);

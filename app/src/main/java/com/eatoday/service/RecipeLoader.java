@@ -23,6 +23,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 public class RecipeLoader extends AsyncTask<String, Void, String> {
 
@@ -31,10 +32,12 @@ public class RecipeLoader extends AsyncTask<String, Void, String> {
     private AlertDialog.Builder builder;
     private ProgressDialog progressDialog;
     public ArrayList<Recipe> arrayList = new ArrayList<>();
+    private CountDownLatch latch;
 
-    public RecipeLoader(Context context) {
+    public RecipeLoader(Context context, CountDownLatch latch) {
         this.context = context;
         this.activity = (Activity) context;
+        this.latch = latch;
     }
 
     @Override
@@ -55,6 +58,7 @@ public class RecipeLoader extends AsyncTask<String, Void, String> {
             URL url = new URL(Constant.URL_RECIPE + getString[0]);
             String json = connectionResult(url);
             RecipeCollection.recipesList = arrayList;
+            latch.countDown();
             return json;
         } catch (MalformedURLException e) {
             e.printStackTrace();
