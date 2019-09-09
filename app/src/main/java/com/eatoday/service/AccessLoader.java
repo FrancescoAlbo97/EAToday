@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 
+import com.eatoday.model.User;
 import com.eatoday.util.Constant;
+import com.eatoday.util.PreferenceUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +22,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.CountDownLatch;
 
 public class AccessLoader extends AsyncTask<String, Void, String> {
 
@@ -27,11 +30,13 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
     private Activity activity;
     private AlertDialog.Builder builder;
     private ProgressDialog progressDialog;
+    private CountDownLatch latch;
 
 
-    public AccessLoader(Context context) {
+    public AccessLoader(Context context, CountDownLatch latch) {
         this.context = context;
         this.activity = (Activity) context;
+        this.latch = latch;
     }
 
     @Override
@@ -60,6 +65,7 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
                 jsonObject.put("email", email);
                 jsonObject.put("password", password);
                 String json = connectionResult(url, jsonObject);
+                latch.countDown();
                 return json;
 
             } else if (method.equals("login")) {
@@ -71,7 +77,14 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
                 jsonObject.put("email", email);
                 jsonObject.put("password", password);
                 String json = connectionResult(url, jsonObject);
-                return json;
+
+                progressDialog.dismiss();
+                if(saveUser(email,password)){
+                    User.setIsLog(true);
+                    latch.countDown();
+                    return json;
+                }
+                //return json;
 
             }
         } catch (MalformedURLException | JSONException e) {
@@ -128,7 +141,7 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
         }
         return null;
     }
-
+/*
     @Override
     protected void onPostExecute(String json) {
         super.onPostExecute(json);
@@ -158,7 +171,7 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     private void showDialog(String title, String message, String code){
         builder.setTitle(title);
@@ -177,5 +190,7 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
         alertDialog.show();
     }
 
-
+    private boolean saveUser(String email,String password){
+        return (PreferenceUtils.saveEmail(email, context) && PreferenceUtils.savePassword(password, context));
+    }
 }

@@ -6,6 +6,7 @@ public class User {
     private String email;
     private String password;
     private String address;
+    private static Boolean isLog = false;
 
     public User(String name, String lastName, String email, String password, String address) {
         this.name = name;
@@ -13,6 +14,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.address = address;
+        isLog = true;
     }
 
     public String getName() {
@@ -53,5 +55,13 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public static Boolean getIsLog() {
+        return isLog;
+    }
+
+    public static void setIsLog(Boolean isLog) {
+        User.isLog = isLog;
     }
 }

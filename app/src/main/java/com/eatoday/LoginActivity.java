@@ -16,8 +16,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.eatoday.helper.DatabaseHelper;
 import com.eatoday.service.AccessLoader;
+import com.eatoday.util.Constant;
 import com.eatoday.util.PreferenceUtils;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.concurrent.CountDownLatch;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -34,6 +37,11 @@ public class LoginActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.email_input);
         password = (EditText) findViewById(R.id.password_input);
         loginButton = (Button) findViewById(R.id.btn_login);
+        Intent intent = getIntent();
+        if (intent.hasExtra(Constant.KEY_EMAIL)){
+            String nameFromIntent = getIntent().getStringExtra(Constant.KEY_EMAIL);
+            email.setText(nameFromIntent);
+        }
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,17 +59,20 @@ public class LoginActivity extends AppCompatActivity {
                     alertDialog.show();
                 }
                 else {
-                    AccessLoader accessLoader = new AccessLoader((Context) LoginActivity.this);
+                    CountDownLatch latch = new CountDownLatch(1);
+                    AccessLoader accessLoader = new AccessLoader((Context) LoginActivity.this, latch);
                     accessLoader.execute("login", email.getText().toString().trim(), password.getText().toString().trim());
-
                     try {
-                        Thread.sleep(2000);
+                        latch.await();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
 
-                    String e = email.getText().toString().trim();
-                    String p = password.getText().toString().trim();
+
+                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    startActivity(intent);
+                    //String e = email.getText().toString().trim();
+                    //String p = password.getText().toString().trim();
                     /*
                     if (!databaseHelper.checkUser(e, p)) {
                         PreferenceUtils.saveEmail(e, (Context) LoginActivity.this);

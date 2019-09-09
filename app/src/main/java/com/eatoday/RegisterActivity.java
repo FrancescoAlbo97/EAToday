@@ -14,6 +14,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.eatoday.service.AccessLoader;
+import com.eatoday.util.Constant;
+
+import java.util.concurrent.CountDownLatch;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -63,14 +66,17 @@ public class RegisterActivity extends AppCompatActivity {
                     alertDialog.show();
                 }
                 else {
-                    AccessLoader accessLoader = new AccessLoader((Context) RegisterActivity.this);
+                    CountDownLatch latch = new CountDownLatch(1);
+                    AccessLoader accessLoader = new AccessLoader((Context) RegisterActivity.this,latch);
                     accessLoader.execute("register", name.getText().toString().trim(), email.getText().toString().trim(), password.getText().toString().trim());
+
                     try {
-                        Thread.sleep(2000);
+                        latch.await();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    intent.putExtra(Constant.KEY_EMAIL, email.getText().toString().trim());
                     startActivity(intent);
                 }
             }

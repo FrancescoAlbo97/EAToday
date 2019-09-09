@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.eatoday.model.Recipe;
 import com.eatoday.model.RecipeCollection;
+import com.eatoday.model.User;
 import com.eatoday.service.RecipeLoader;
 import com.eatoday.ui.recipes.RecipeAdapter;
 import com.google.android.material.navigation.NavigationView;
@@ -37,12 +38,6 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = getIntent();
-        if (intent.hasExtra("EMAIL")){
-            String nameFromIntent = getIntent().getStringExtra("EMAIL");
-            navigationView.getMenu().getItem(0).setTitle("Profilo");
-        }
-
         toolbar = this.findViewById(R.id.toolbar);
         this.setSupportActionBar(toolbar);
 
@@ -55,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         recyclerViewRecipe.setHasFixedSize(true);
         layoutManagerRecipe = new LinearLayoutManager(this);
         recyclerViewRecipe.setLayoutManager(layoutManagerRecipe);
+
         RecipeLoader recipeLoader = new RecipeLoader((Context) MainActivity.this);
         recipeLoader.execute("");
         try {
@@ -69,6 +65,11 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
 
         drawerLayout = this.findViewById(R.id.drawer_layout);
         navigationView = this.findViewById(R.id.navigationView);
+
+        //User.setIsLog(true);
+        if (User.getIsLog()){
+            navigationView.getMenu().findItem(R.id.nav2).setTitle(R.string.app_name);
+        }
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
