@@ -1,5 +1,7 @@
 package com.eatoday.model;
 
+import com.eatoday.util.Constant;
+
 public class Recipe {
     private static int counter;
     private int id;
@@ -19,9 +21,10 @@ public class Recipe {
         this.price = null;
         this.type = null;
         this.description = null;
+        this.imageUrl = createImageUrlByName(name);
     }
 
-    public Recipe(String name, String time, String difficult, String price, String type, String description, String imageUrl) {
+    public Recipe(String name, String time, String difficult, String price, String type, String description) {
         this.id = setId();
         this.name = name;
         this.time = time;
@@ -29,7 +32,7 @@ public class Recipe {
         this.price = price;
         this.type = type;
         this.description = description;
-        this.imageUrl = imageUrl;
+        this.imageUrl = createImageUrlByName(name);
     }
 
     public int getId() {
@@ -96,5 +99,10 @@ public class Recipe {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    private String createImageUrlByName(String name){
+        String url = Constant.IMAGES_PATH + name.replaceAll(" ","_") + Constant.PNG;
+        return  url;
     }
 }

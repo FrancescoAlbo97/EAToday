@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.eatoday.R;
 import com.eatoday.model.Recipe;
-import com.eatoday.util.Constant;
 
 import java.util.ArrayList;
 
@@ -64,12 +63,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RecipeAdapter.ViewHolder holder, int position) {
-        String name = recipes.get(position).getName();
         holder.itemView.setTag(recipes.get(position));
-        holder.tvRecipeName.setText(name);
-        String name_ = name.replaceAll(" ","_");
+        holder.tvRecipeName.setText(recipes.get(position).getName());
         Glide.with(thisClass.getApplicationContext())
-                .load(Constant.IMAGES_PATH + name_ + Constant.PNG)
+                .load(recipes.get(position).getImageUrl())
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(holder.ivImageRecipe);
     }
