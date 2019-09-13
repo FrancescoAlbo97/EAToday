@@ -15,14 +15,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.eatoday.model.Recipe;
 import com.eatoday.model.RecipeCollection;
 import com.eatoday.model.User;
 import com.eatoday.service.RecipeLoader;
 import com.eatoday.ui.recipes.RecipeAdapter;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
 public class MainActivity extends AppCompatActivity implements RecipeAdapter.ItemClicked{
@@ -61,17 +59,16 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //ArrayList<Recipe> arrayList = new ArrayList<>();
-        //arrayList = RecipeCollection.recipesList;
+
         myRecipeAdapter = new RecipeAdapter(this,(Context) MainActivity.this, RecipeCollection.recipesList);
         recyclerViewRecipe.setAdapter(myRecipeAdapter);
 
         drawerLayout = this.findViewById(R.id.drawer_layout);
         navigationView = this.findViewById(R.id.navigationView);
 
-        //User.setIsLog(true);
+
         if (User.getIsLog()){
-            navigationView.getMenu().findItem(R.id.nav2).setTitle(R.string.app_name);
+            navigationView.getMenu().findItem(R.id.nav2).setTitle(R.string.menu_2l);
         }else{
             navigationView.getMenu().findItem(R.id.nav5).setVisible(false);
         }
@@ -87,9 +84,13 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
                         drawerLayout.closeDrawers();
                         return true;
                     case R.id.nav2:
-                        menuItem.setChecked(true);
-                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                        startActivity(intent);
+                        if (User.getIsLog()){
+
+                        }else{
+                            menuItem.setChecked(true);
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                            startActivity(intent);
+                        }
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.nav3:

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 
+import com.eatoday.model.Ingredient;
 import com.eatoday.model.Recipe;
 import com.eatoday.model.RecipeCollection;
 import com.eatoday.util.Constant;
@@ -91,16 +92,7 @@ public class RecipeLoader extends AsyncTask<String, Void, String> {
                 httpURLConnection.disconnect();
                 String json = stringBuilder.toString().trim();
                 progressDialog.dismiss();
-
-                JSONArray jsonArray = null;
-                try {
-                    jsonArray = new JSONArray(json);
-                    for(int i=0; i < jsonArray.length(); i++){
-                        arrayList.add(new Recipe(jsonArray.getJSONObject(i).getString("name")));
-                    }
-                } catch (JSONException ex) {
-                    ex.printStackTrace();
-                }
+                serializeJson(json);
                 return json;
             }
         } catch (Exception e) {
@@ -143,6 +135,32 @@ public class RecipeLoader extends AsyncTask<String, Void, String> {
         }
         RecipeCollection.recipesList = arrayList;
     }*/
+
+    private void serializeJson(String json){
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            for(int i=0; i < jsonArray.length(); i++){
+                JSONArray ingredients = jsonArray.getJSONObject(i).getJSONArray("ingredients");
+                ArrayList<Ingredient> ingredientArrayList = new ArrayList<>();
+                for( int j = 0; j < ingredients.length(); j++){
+                    ingredientArrayList.add(new Ingredient(ingredients.getJSONObject(j).getString("id"),
+                            ingredients.getJSONObject(j).getString("name"),
+                            ingredients.getJSONObject(j).getString("unit"),
+                            ingredients.getJSONObject(j).getString("availability"),
+                            ingredients.getJSONObject(j).getString("price"),
+                            ingredients.getJSONObject(j).getString("store")));
+                }
+                arrayList.add(new Recipe(jsonArray.getJSONObject(i).getString("name"),
+                        jsonArray.getJSONObject(i).getString("time"),
+                        jsonArray.getJSONObject(i).getString("difficulty"),
+                        jsonArray.getJSONObject(i).getString("type"),
+                        jsonArray.getJSONObject(i).getString("description"),
+                        ingredientArrayList));
+            }
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     private void showDialog(String title, String message, String code){
         builder.setTitle(title);
