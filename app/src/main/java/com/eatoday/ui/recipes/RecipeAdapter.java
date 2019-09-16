@@ -45,6 +45,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         TextView tvRecipeDifficulty;
         TextView tvRecipePrice;
         TextView tvRecipeType;
+        LinearLayout linearLayoutTop;
+        LinearLayout linearLayoutBottom;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -54,6 +56,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             tvRecipeDifficulty = itemView.findViewById(R.id.tvRecipeDifficulty);
             tvRecipePrice = itemView.findViewById(R.id.tvRecipePrice);
             tvRecipeType = itemView.findViewById(R.id.tvRecipeType);
+            linearLayoutTop = itemView.findViewById(R.id.layout_top);
+            linearLayoutBottom = itemView.findViewById(R.id.layout_bottom);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -78,13 +82,18 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         holder.tvRecipeName.setText(recipes.get(position).getName());
         Glide.with(thisClass.getApplicationContext())
                 .load(recipe.getImageUrl())
-                .placeholder(R.drawable.ic_launcher_background)
-                //TODO CAMBIARE PLACEHOLDER
+                .placeholder(R.drawable.ic_broken_image_black_24dp)
                 .into(holder.ivImageRecipe);
         holder.tvRecipeTime.setText(recipe.getTime());
         holder.tvRecipeDifficulty.setText(recipe.getDifficulty());
         holder.tvRecipePrice.setText(recipe.getPrice());
         holder.tvRecipeType.setText(recipe.getType());
+        ViewGroup.LayoutParams paramsTop = holder.linearLayoutTop.getLayoutParams();
+        paramsTop.height = holder.tvRecipePrice.getHeight();
+        holder.linearLayoutTop.setLayoutParams(paramsTop);
+        ViewGroup.LayoutParams paramsBottom = holder.linearLayoutBottom.getLayoutParams();
+        paramsBottom.height = holder.tvRecipePrice.getHeight();
+        holder.linearLayoutBottom.setLayoutParams(paramsBottom);
     }
 
     @Override
