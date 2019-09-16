@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,11 +41,20 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
         ImageView ivImageRecipe;
         TextView tvRecipeName;
+        TextView tvRecipeTime;
+        TextView tvRecipeDifficulty;
+        TextView tvRecipePrice;
+        TextView tvRecipeType;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivImageRecipe = itemView.findViewById(R.id.ivImageRecipe);
             tvRecipeName = itemView.findViewById(R.id.tvRecipeName);
+            tvRecipeTime = itemView.findViewById(R.id.tvRecipeTime);
+            tvRecipeDifficulty = itemView.findViewById(R.id.tvRecipeDifficulty);
+            tvRecipePrice = itemView.findViewById(R.id.tvRecipePrice);
+            tvRecipeType = itemView.findViewById(R.id.tvRecipeType);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -63,12 +73,18 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RecipeAdapter.ViewHolder holder, int position) {
-        holder.itemView.setTag(recipes.get(position));
+        Recipe recipe = recipes.get(position);
+        holder.itemView.setTag(recipe);
         holder.tvRecipeName.setText(recipes.get(position).getName());
         Glide.with(thisClass.getApplicationContext())
-                .load(recipes.get(position).getImageUrl())
+                .load(recipe.getImageUrl())
                 .placeholder(R.drawable.ic_launcher_background)
+                //TODO CAMBIARE PLACEHOLDER
                 .into(holder.ivImageRecipe);
+        holder.tvRecipeTime.setText(recipe.getTime());
+        holder.tvRecipeDifficulty.setText(recipe.getDifficulty());
+        holder.tvRecipePrice.setText(recipe.getPrice());
+        holder.tvRecipeType.setText(recipe.getType());
     }
 
     @Override

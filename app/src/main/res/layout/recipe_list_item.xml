@@ -45,71 +45,16 @@
                 <TextView
                     android:id="@+id/tvRecipeName"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
                     android:textColor="@color/colorPrimaryText"
                     android:textStyle="bold" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:baselineAligned="false">
-
-                    <LinearLayout
-                        android:id="@+id/layout_sx"
+                    <include
+                        layout="@layout/recipe_item_info"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="@dimen/card_view_margin"
-                        android:orientation="vertical">
+                        android:layout_height="match_parent" />
 
-                        <TextView
-                            android:id="@+id/tvRecipeTime"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="time"
-                            android:textColor="@color/colorSecondaryText"/>
-
-                        <TextView
-                            android:id="@+id/tvRecipeDifficulty"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="type"
-                            android:textColor="@color/colorSecondaryText"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/layout_dx"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginRight="@dimen/card_view_margin">
-
-                        <TextView
-                            android:id="@+id/tvRecipePrice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="price"
-                            android:textColor="@color/colorSecondaryText"/>
-
-                        <TextView
-                            android:id="@+id/tvRecipeType"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="difficulty"
-                            android:textColor="@color/colorSecondaryText"/>
-
-
-                    </LinearLayout>
-
-                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

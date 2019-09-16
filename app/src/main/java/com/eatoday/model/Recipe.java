@@ -36,7 +36,7 @@ public class Recipe {
         this.description = description;
         this.imageUrl = createImageUrlByName(name);
         this.ingredients = ingredients;
-        //TODO Prezzo calcolato su ingredienti
+        this.price = setPrice(ingredients);
     }
 
     public int getId() {
@@ -79,6 +79,14 @@ public class Recipe {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+    private String setPrice(ArrayList<Ingredient> ingredients){
+        float sum = 0;
+        for (int i=0; i < ingredients.size(); i++){
+            String s = ingredients.get(i).getPrice().replaceAll("€","").trim();
+            sum += Float.parseFloat(s);
+        }
+        return sum + " €";
     }
 
     public String getType() {
