@@ -89,10 +89,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         holder.tvRecipePrice.setText(recipe.getPrice());
         holder.tvRecipeType.setText(recipe.getType());
         ViewGroup.LayoutParams paramsTop = holder.linearLayoutTop.getLayoutParams();
-        paramsTop.height = holder.tvRecipePrice.getHeight();
+        paramsTop.height = 100;
         holder.linearLayoutTop.setLayoutParams(paramsTop);
         ViewGroup.LayoutParams paramsBottom = holder.linearLayoutBottom.getLayoutParams();
-        paramsBottom.height = holder.tvRecipePrice.getHeight();
+        paramsBottom.height = 100;
         holder.linearLayoutBottom.setLayoutParams(paramsBottom);
     }
 

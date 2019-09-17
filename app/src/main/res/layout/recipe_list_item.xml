@@ -10,12 +10,12 @@
 
     <androidx.cardview.widget.CardView
         app:cardBackgroundColor="@color/cardview_light_background"
-        app:cardCornerRadius="5dp"
+        app:cardCornerRadius="7dp"
         app:cardElevation="5dp"
         app:cardUseCompatPadding="false"
         app:cardPreventCornerOverlap="false"
         android:padding="@dimen/card_view_margin"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -25,37 +25,34 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/tvRecipeName"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/fab_margin"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="18sp"
+                android:textStyle="bold|italic" />
+
             <ImageView
                 android:id="@+id/ivImageRecipe"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/cardview_default_elevation"
-                android:layout_marginBottom="@dimen/cardview_default_elevation"
+                android:layout_margin="5dp"
+                android:padding="3dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/image_of_each_item"
                 android:scaleType="fitXY"
                 android:textColor="@color/colorIcons"
+                android:background="@color/colorPrimaryLight"
                 />
 
-            <LinearLayout
+            <include
+                layout="@layout/recipe_item_info"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvRecipeName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textStyle="bold" />
-
-                    <include
-                        layout="@layout/recipe_item_info"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-            </LinearLayout>
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 
