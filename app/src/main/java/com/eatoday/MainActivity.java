@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
 
         if (User.getIsLog()){
             navigationView.getMenu().findItem(R.id.nav2).setTitle(R.string.menu_2l);
+            navigationView.getMenu().findItem(R.id.nav2).setIcon(R.drawable.ic_user);
         }else{
             navigationView.getMenu().findItem(R.id.nav5).setVisible(false);
         }
