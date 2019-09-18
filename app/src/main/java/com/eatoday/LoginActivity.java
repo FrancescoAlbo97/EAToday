@@ -17,8 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.eatoday.helper.DatabaseHelper;
 import com.eatoday.service.AccessLoader;
 import com.eatoday.util.Constant;
-import com.eatoday.util.PreferenceUtils;
-import com.google.android.material.snackbar.Snackbar;
+
 
 import java.util.concurrent.CountDownLatch;
 

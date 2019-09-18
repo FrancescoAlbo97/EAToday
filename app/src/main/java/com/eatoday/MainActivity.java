@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
-        recyclerViewRecipe = findViewById(R.id.list);
+        recyclerViewRecipe = findViewById(R.id.list_details);
         recyclerViewRecipe.setHasFixedSize(true);
         layoutManagerRecipe = new LinearLayoutManager(this);
         recyclerViewRecipe.setLayoutManager(layoutManagerRecipe);
@@ -134,6 +134,9 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
 
     @Override
     public void onItemClicked(int index) {
+        Intent intent = new Intent(MainActivity.this, DetailsActivity.class );
+        intent.putExtra("recipeIndex", index);
+        startActivity(intent);
         Toast.makeText(this,"item selected" + RecipeCollection.recipesList.get(index).toString(),Toast.LENGTH_SHORT).show();
     }
 }

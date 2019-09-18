@@ -41,13 +41,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:padding="3dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/image_of_each_item"
                 android:scaleType="fitXY"
-                android:textColor="@color/colorIcons"
-                android:background="@color/colorPrimaryLight"
-                />
+                android:textColor="@color/colorIcons"/>
+
+            <!--android:padding="3dp"
+                android:background="@color/colorPrimaryLight"-->
 
             <include
                 layout="@layout/recipe_item_info"
