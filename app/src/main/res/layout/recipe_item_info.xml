@@ -15,13 +15,14 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingTop="@dimen/fab_margin"
-        android:paddingRight="@dimen/fab_margin">
+        android:paddingEnd="@dimen/fab_margin">
 
         <ImageView
             android:id="@+id/imageVTime"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_access_time_black_24dp" />
 
         <TextView
@@ -31,13 +32,14 @@
             android:layout_weight="1"
             android:textAlignment="textStart"
             android:textColor="@color/colorSecondaryText"
-            android:textSize="16sp" />
+            android:textSize="@dimen/size_font_info_recipe" />
 
         <ImageView
             android:id="@+id/imageVPrice"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_euro_symbol_black_24dp" />
 
         <TextView
@@ -47,7 +49,7 @@
             android:layout_weight="1"
             android:textAlignment="textStart"
             android:textColor="@color/colorSecondaryText"
-            android:textSize="16sp" />
+            android:textSize="@dimen/size_font_info_recipe" />
 
 
     </LinearLayout>
@@ -58,14 +60,16 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingTop="@dimen/fab_margin"
-        android:paddingRight="@dimen/fab_margin">
+        android:layout_marginTop="20dp"
+        android:paddingEnd="@dimen/fab_margin"
+        android:paddingBottom="@dimen/fab_margin">
 
         <ImageView
             android:id="@+id/imageVDifficulty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_chef" />
 
         <TextView
@@ -75,13 +79,14 @@
             android:layout_weight="1"
             android:textAlignment="textStart"
             android:textColor="@color/colorSecondaryText"
-            android:textSize="16sp" />
+            android:textSize="@dimen/size_font_info_recipe"  />
 
         <ImageView
             android:id="@+id/imageVType"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_local_florist_black_24dp" />
 
         <TextView
@@ -91,10 +96,10 @@
             android:layout_weight="1"
             android:textAlignment="textStart"
             android:textColor="@color/colorSecondaryText"
-            android:textSize="16sp" />
+            android:textSize="@dimen/size_font_info_recipe"  />
 
     </LinearLayout>
-
+<!--
     <LinearLayout
         android:id="@+id/layout_btn"
         android:layout_width="match_parent"
@@ -110,4 +115,5 @@
             android:text="PROCEDI"
             android:textSize="20sp" />
     </LinearLayout>
+    -->
 </LinearLayout>

@@ -40,6 +40,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         ImageView ivImageRecipe;
+        ImageView imageVTime;
+        ImageView imageVPrice;
+        ImageView imageVDifficulty;
+        ImageView imageVType;
         TextView tvRecipeName;
         TextView tvRecipeTime;
         TextView tvRecipeDifficulty;
@@ -51,6 +55,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivImageRecipe = itemView.findViewById(R.id.ivImageRecipe);
+            imageVTime = itemView.findViewById(R.id.imageVTime);
+            imageVPrice = itemView.findViewById(R.id.imageVPrice);
+            imageVDifficulty = itemView.findViewById(R.id.imageVDifficulty);
+            imageVType = itemView.findViewById(R.id.imageVType);
             tvRecipeName = itemView.findViewById(R.id.tvRecipeName);
             tvRecipeTime = itemView.findViewById(R.id.tvRecipeTime);
             tvRecipeDifficulty = itemView.findViewById(R.id.tvRecipeDifficulty);
@@ -89,11 +97,19 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         holder.tvRecipePrice.setText(recipe.getPrice());
         holder.tvRecipeType.setText(recipe.getType());
         ViewGroup.LayoutParams paramsTop = holder.linearLayoutTop.getLayoutParams();
-        paramsTop.height = 100;
+        paramsTop.height = 150;
         holder.linearLayoutTop.setLayoutParams(paramsTop);
         ViewGroup.LayoutParams paramsBottom = holder.linearLayoutBottom.getLayoutParams();
-        paramsBottom.height = 100;
+        paramsBottom.height = 150;
         holder.linearLayoutBottom.setLayoutParams(paramsBottom);
+        /*
+        ViewGroup.LayoutParams params = holder.imageVTime.getLayoutParams();
+        params.width=150;
+        params.height=150;
+        holder.imageVTime.setLayoutParams(params);
+        holder.imageVDifficulty.setLayoutParams(params);
+        holder.imageVPrice.setLayoutParams(params);
+        holder.imageVType.setLayoutParams(params);*/
     }
 
     @Override

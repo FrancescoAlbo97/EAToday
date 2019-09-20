@@ -2,6 +2,7 @@ package com.eatoday;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +36,9 @@ public class DetailsActivity extends AppCompatActivity {
                     .placeholder(R.drawable.ic_broken_image_black_24dp)
                     .into(ivImageRecipe);
         }
+        ViewGroup.LayoutParams layoutParams = ivImageRecipe.getLayoutParams();
+        layoutParams.height = 500;
+        ivImageRecipe.setLayoutParams(layoutParams);
 
         recyclerViewIngredient = findViewById(R.id.list_details);
         recyclerViewIngredient.setHasFixedSize(true);

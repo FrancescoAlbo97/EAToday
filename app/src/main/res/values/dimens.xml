@@ -1,4 +1,7 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_margin">20dp</dimen>
     <dimen name="card_view_margin">5dp</dimen>
+    <dimen name="icon_in_app">80dp</dimen>
+    <dimen name="paragraf">10dp</dimen>
+    <dimen name="size_font_info_recipe">18sp</dimen>
 </resources>
