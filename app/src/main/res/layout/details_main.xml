@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:visibility="visible">
+    android:visibility="visible"
+    tools:context=".DetailsActivity">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -29,7 +30,7 @@
                 android:id="@+id/tvName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_margin"
+                android:layout_margin="@dimen/paragraf"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:textStyle="bold|italic" />
@@ -65,10 +66,10 @@
                         android:textSize="18sp" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/list_details"
+                        android:id="@+id/list_ingredients"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/fab_margin" />
+                        android:paddingStart="@dimen/fab_margin" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -90,6 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginRight="@dimen/paragraf"
                     android:orientation="vertical">
 
                     <TextView
@@ -111,6 +113,7 @@
                 </LinearLayout>
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/layout_btn"
                 android:layout_width="match_parent"
@@ -118,6 +121,7 @@
                 android:layout_marginTop="@dimen/fab_margin"
                 android:layout_marginBottom="@dimen/fab_margin"
                 android:orientation="horizontal"
+                android:layout_alignBottom="@id/description"
                 android:visibility="visible">
 
                 <Button
@@ -127,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/fab_margin"
                     android:layout_weight="1"
-                    android:text="Indietro"
+                    android:text="indietro"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textSize="@dimen/size_font_info_recipe"
                     android:textStyle="bold" />
@@ -138,9 +142,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Button"
+                    android:text="ordina"
                     android:textSize="@dimen/size_font_info_recipe" />
             </LinearLayout>
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
