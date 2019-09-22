@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +18,7 @@ import com.eatoday.ui.recipes.IngredientAdapter;
 public class DetailsActivity extends AppCompatActivity implements IngredientAdapter.ItemClicked {
 
     RecyclerView recyclerViewIngredient;
+    RecyclerView.LayoutManager layoutManagerIngredient;
     ImageView ivImageRecipe;
     TextView tvName;
     IngredientAdapter myIngredientAdapter;
@@ -49,6 +51,9 @@ public class DetailsActivity extends AppCompatActivity implements IngredientAdap
 
         myIngredientAdapter = new IngredientAdapter(this,(Context) DetailsActivity.this, RecipeCollection.recipesList.get(index).getIngredients());
         recyclerViewIngredient.setAdapter(myIngredientAdapter);
+
+        layoutManagerIngredient = new LinearLayoutManager(this);
+        recyclerViewIngredient.setLayoutManager(layoutManagerIngredient);
 
 /*
         Intent intent = getIntent();
