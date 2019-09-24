@@ -17,8 +17,10 @@ import android.widget.Toast;
 
 import com.eatoday.model.RecipeCollection;
 import com.eatoday.model.User;
+import com.eatoday.service.AccessLoader;
 import com.eatoday.service.RecipeLoader;
 import com.eatoday.ui.recipes.RecipeAdapter;
+import com.eatoday.util.PreferenceUtils;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.concurrent.CountDownLatch;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
     RecyclerView recyclerViewRecipe;
     RecyclerView.Adapter myRecipeAdapter;
     RecyclerView.LayoutManager layoutManagerRecipe;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,22 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         drawerLayout = this.findViewById(R.id.drawer_layout);
         navigationView = this.findViewById(R.id.navigationView);
 
+        String email;
+        String password;
+
+        if(PreferenceUtils.getEmail(getApplicationContext()) != null){
+            email = PreferenceUtils.getEmail(getApplicationContext());
+            password = PreferenceUtils.getPassword(getApplicationContext());
+
+            CountDownLatch latch2 = new CountDownLatch(1);
+            AccessLoader accessLoader = new AccessLoader((Context) MainActivity.this, latch2);
+            accessLoader.execute("login", email, password);
+            try {
+                latch2.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
         if (User.getIsLog()){
             navigationView.getMenu().findItem(R.id.nav2).setTitle(R.string.menu_2l);
@@ -85,10 +104,11 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
                         drawerLayout.closeDrawers();
                         return true;
                     case R.id.nav2:
+                        menuItem.setChecked(true);
                         if (User.getIsLog()){
-
+                            //TODO FARE IL MODIFICA PROFILO
                         }else{
-                            menuItem.setChecked(true);
+                            finish();
                             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                             startActivity(intent);
                         }
@@ -96,8 +116,11 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
                         break;
                     case R.id.nav3:
                         menuItem.setChecked(true);
-                        displayMessage("ciao"+menuItem.getItemId());
+                        finish();
+                        Intent intentF = new Intent(getApplicationContext(), FilterActivity.class);
+                        startActivity(intentF);
                         drawerLayout.closeDrawers();
+                        menuItem.setChecked(false);
                         return true;
                     case R.id.nav4:
                         menuItem.setChecked(true);
@@ -106,8 +129,11 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
                         return true;
                     case R.id.nav5:
                         menuItem.setChecked(true);
-                        displayMessage("ciao"+menuItem.getItemId());
+                        PreferenceUtils.logout(getApplicationContext());
                         drawerLayout.closeDrawers();
+                        Intent intentM = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intentM);
+                        //TODO SISTEMARE IL CHECKED
                         return true;
                 }
                 return false;
@@ -137,6 +163,6 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         Intent intent = new Intent(MainActivity.this, DetailsActivity.class );
         intent.putExtra("recipeIndex", index);
         startActivity(intent);
-        Toast.makeText(this,"item selected" + RecipeCollection.recipesList.get(index).toString(),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"item selected" + RecipeCollection.recipesList.get(index).toString(),Toast.LENGTH_SHORT).show();
     }
 }

@@ -65,10 +65,11 @@
                         android:textAlignment="textStart"
                         android:textSize="18sp" />
 
-                    <androidx.recyclerview.widget.RecyclerView
+                    <ListView
                         android:id="@+id/list_ingredients"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/fab_margin"
                         android:paddingStart="@dimen/fab_margin" />
                 </LinearLayout>
             </LinearLayout>
@@ -118,13 +119,12 @@
                 android:id="@+id/layout_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/fab_margin"
-                android:layout_marginBottom="@dimen/fab_margin"
+                android:layout_margin= "@dimen/fab_margin"
                 android:orientation="horizontal"
                 android:visibility="visible">
-
+<!--
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/btn_back"
                     style="@android:style/Widget.Material.Button.Borderless.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -136,13 +136,14 @@
                     android:textStyle="bold" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/btn_ord"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="ordina"
                     android:textSize="@dimen/size_font_info_recipe" />
+                    -->
             </LinearLayout>
 
         </LinearLayout>

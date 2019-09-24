@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,13 +10,11 @@
 
 
     <androidx.cardview.widget.CardView
-        app:cardBackgroundColor="@color/cardview_light_background"
-        app:cardCornerRadius="7dp"
-        app:cardElevation="5dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="3dp"
+        app:cardElevation="1dp"
         app:cardUseCompatPadding="false"
         app:cardPreventCornerOverlap="false"
-        android:padding="@dimen/card_view_margin"
-        android:layout_margin="7dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -23,20 +22,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="@android:dimen/app_icon_size"
-                android:layout_height="@android:dimen/app_icon_size"
-                android:layout_weight="1"
-                app:srcCompat="@android:drawable/checkbox_off_background" />
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/fab_margin">
 
             <TextView
                 android:id="@+id/tvIngredientName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/paragraf"
                 android:layout_weight="1"
                 android:paddingStart="@dimen/fab_margin"
                 android:text="Ciaooo"
@@ -44,6 +36,15 @@
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/size_font_info_recipe"
                 android:textStyle="italic" />
+
+            <Button
+                android:id="@+id/btn_delete_ingredient"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="X"
+                android:textColor="@color/colorPrimary"/>
 
             <!--android:padding="3dp"
                 android:background="@color/colorPrimaryLight"-->

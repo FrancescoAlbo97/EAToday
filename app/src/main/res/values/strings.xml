@@ -9,4 +9,6 @@
     <string name="menu_3">Filtra ricette</string>
     <string name="menu_4">Progetto</string>
     <string name="menu_5l">Logout</string>
+    <string name="quali_ingredienti_vorresti_includere">Quali ingredienti vorresti includere?</string>
+    <string name="quali_ingredienti_vorresti_escludere">Quali ingredienti vorresti escludere?</string>
 </resources>

@@ -28,6 +28,8 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
 
     private String DROP_USER_TABLE = "DROP TABLE IF EXISTS " + TABLE_USER;
 
+    private User user;
+
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -54,6 +56,29 @@ public class DatabaseHelper  extends SQLiteOpenHelper {
 
         db.insert(TABLE_USER, null, values);
         db.close();
+    }
+
+    public User getUser(String email, String password) {
+        String[] columns = {
+                COLUMN_USER_EMAIL,
+                COLUMN_USER_PASSWORD
+        };
+        SQLiteDatabase db = this.getWritableDatabase();
+        String selection = COLUMN_USER_EMAIL + " = ?" + " AND " + COLUMN_USER_PASSWORD + " = ?";
+        String[] selectionArgs = { email, password };
+
+        Cursor cursor = db.query(TABLE_USER,
+                columns,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null);
+        user.setEmail(cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL)));
+        user.setPassword(cursor.getString(cursor.getColumnIndex(COLUMN_USER_PASSWORD)));
+        cursor.close();
+        db.close();
+        return user;
     }
 
     public void updatePassword(String email, String password){

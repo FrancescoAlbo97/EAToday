@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.eatoday.model.User;
+
 public class PreferenceUtils {
 
     public PreferenceUtils(){
@@ -34,6 +36,15 @@ public class PreferenceUtils {
     public static String getPassword(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getString(Constant.KEY_PASSWORD, null);
+    }
+
+    public static void logout(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constant.KEY_EMAIL, null);
+        prefsEditor.putString(Constant.KEY_PASSWORD, null);
+        prefsEditor.apply();
+        User.setIsLog(false);
     }
 }
 
