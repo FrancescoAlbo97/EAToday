@@ -20,6 +20,7 @@ import com.eatoday.model.User;
 import com.eatoday.service.AccessLoader;
 import com.eatoday.service.RecipeLoader;
 import com.eatoday.ui.recipes.RecipeAdapter;
+import com.eatoday.ui.toolbar.InitToolbar;
 import com.eatoday.util.PreferenceUtils;
 import com.google.android.material.navigation.NavigationView;
 
@@ -27,9 +28,7 @@ import java.util.concurrent.CountDownLatch;
 
 public class MainActivity extends AppCompatActivity implements RecipeAdapter.ItemClicked{
 
-    private Toolbar toolbar;
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
+    InitToolbar initToolbar;
     RecyclerView recyclerViewRecipe;
     RecyclerView.Adapter myRecipeAdapter;
     RecyclerView.LayoutManager layoutManagerRecipe;
@@ -40,13 +39,11 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = this.findViewById(R.id.toolbar);
-        this.setSupportActionBar(toolbar);
+        initToolbar = new InitToolbar(this);
+        this.setSupportActionBar(initToolbar.getToolbar());
+        initToolbar.init(this.getSupportActionBar());
 
-        final ActionBar actionBar = this.getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
 
         recyclerViewRecipe = findViewById(R.id.list_details);
         recyclerViewRecipe.setHasFixedSize(true);
@@ -63,16 +60,14 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
             e.printStackTrace();
         }
 
-        myRecipeAdapter = new RecipeAdapter(this,(Context) MainActivity.this, RecipeCollection.recipesList);
+        myRecipeAdapter = new RecipeAdapter(this, (Context) MainActivity.this, RecipeCollection.recipesList);
         recyclerViewRecipe.setAdapter(myRecipeAdapter);
 
-        drawerLayout = this.findViewById(R.id.drawer_layout);
-        navigationView = this.findViewById(R.id.navigationView);
 
         String email;
         String password;
 
-        if(PreferenceUtils.getEmail(getApplicationContext()) != null){
+        if (PreferenceUtils.getEmail(getApplicationContext()) != null) {
             email = PreferenceUtils.getEmail(getApplicationContext());
             password = PreferenceUtils.getPassword(getApplicationContext());
 
@@ -86,77 +81,26 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
             }
         }
 
-        if (User.getIsLog()){
-            navigationView.getMenu().findItem(R.id.nav2).setTitle(R.string.menu_2l);
-            navigationView.getMenu().findItem(R.id.nav2).setIcon(R.drawable.ic_user);
-        }else{
-            navigationView.getMenu().findItem(R.id.nav5).setVisible(false);
-        }
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        initToolbar.getNavigationView().setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-                switch (menuItem.getItemId()){
-                    case R.id.nav1:
-                        menuItem.setChecked(true);
-                        displayMessage("ciao"+menuItem.getItemId());
-                        drawerLayout.closeDrawers();
-                        return true;
-                    case R.id.nav2:
-                        menuItem.setChecked(true);
-                        if (User.getIsLog()){
-                            //TODO FARE IL MODIFICA PROFILO
-                        }else{
-                            finish();
-                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                            startActivity(intent);
-                        }
-                        drawerLayout.closeDrawers();
-                        break;
-                    case R.id.nav3:
-                        menuItem.setChecked(true);
-                        finish();
-                        Intent intentF = new Intent(getApplicationContext(), FilterActivity.class);
-                        startActivity(intentF);
-                        drawerLayout.closeDrawers();
-                        menuItem.setChecked(false);
-                        return true;
-                    case R.id.nav4:
-                        menuItem.setChecked(true);
-                        displayMessage("ciao"+menuItem.getItemId());
-                        drawerLayout.closeDrawers();
-                        return true;
-                    case R.id.nav5:
-                        menuItem.setChecked(true);
-                        PreferenceUtils.logout(getApplicationContext());
-                        drawerLayout.closeDrawers();
-                        Intent intentM = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intentM);
-                        //TODO SISTEMARE IL CHECKED
-                        return true;
+                if (initToolbar.setOnNavigationItemSelected(menuItem)){
+                    startActivity(initToolbar.getIntent());
+                    //TODO settare i backbutton con Intent precedente;
+                    return true;
                 }
                 return false;
             }
         });
-    }
 
-    private void displayMessage(String message){
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-
-        switch (item.getItemId()){
-            case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
-                return true;
-
-        }
-
-        return super.onOptionsItemSelected(item);
+        if(initToolbar.setOnOptionsItemSelected(item)) return true;
+        else return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onItemClicked(int index) {
