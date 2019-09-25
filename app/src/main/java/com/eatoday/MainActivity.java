@@ -39,13 +39,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = this.findViewById(R.id.toolbar);
-        this.setSupportActionBar(toolbar);
-
-        final ActionBar actionBar = this.getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        initToolbar();
 
         recyclerViewRecipe = findViewById(R.id.list_details);
         recyclerViewRecipe.setHasFixedSize(true);
@@ -65,9 +59,23 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         myRecipeAdapter = new RecipeAdapter(this,(Context) MainActivity.this, RecipeCollection.recipesList);
         recyclerViewRecipe.setAdapter(myRecipeAdapter);
 
+
+    }
+
+    private void displayMessage(String message){
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+    }
+
+    private void initToolbar() {
+        toolbar = this.findViewById(R.id.toolbar);
         drawerLayout = this.findViewById(R.id.drawer_layout);
         navigationView = this.findViewById(R.id.navigationView);
+        this.setSupportActionBar(toolbar);
 
+        final ActionBar actionBar = this.getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         if (User.getIsLog()){
             navigationView.getMenu().findItem(R.id.nav2).setTitle(R.string.menu_2l);
@@ -112,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
                         menuItem.setChecked(true);
                         displayMessage("ciao"+menuItem.getItemId());
                         PreferenceUtils.logout(getApplicationContext());
-                        Intent intentM = new Intent(getApplicationContext(), FilterActivity.class);
+                        Intent intentM = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intentM);
                         drawerLayout.closeDrawers();
                         return true;
@@ -120,10 +128,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
                 return false;
             }
         });
-    }
 
-    private void displayMessage(String message){
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 
     @Override
