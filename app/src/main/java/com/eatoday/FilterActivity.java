@@ -2,6 +2,10 @@ package com.eatoday;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewStub;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,6 +13,7 @@ import android.widget.ListView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.eatoday.model.Ingredient;
 import com.eatoday.model.RecipeCollection;
@@ -27,6 +32,7 @@ public class FilterActivity extends AppCompatActivity {
     ListView listViewNO;
     EditText ingredientNO;
     Button btnNO;
+
 
 
     @Override

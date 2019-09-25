@@ -17,10 +17,9 @@ import android.widget.Toast;
 
 import com.eatoday.model.RecipeCollection;
 import com.eatoday.model.User;
-import com.eatoday.service.AccessLoader;
 import com.eatoday.service.RecipeLoader;
 import com.eatoday.ui.recipes.RecipeAdapter;
-import com.eatoday.ui.toolbar.InitToolbar;
+
 import com.eatoday.util.PreferenceUtils;
 import com.google.android.material.navigation.NavigationView;
 
@@ -28,22 +27,25 @@ import java.util.concurrent.CountDownLatch;
 
 public class MainActivity extends AppCompatActivity implements RecipeAdapter.ItemClicked{
 
-    InitToolbar initToolbar;
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
     RecyclerView recyclerViewRecipe;
     RecyclerView.Adapter myRecipeAdapter;
     RecyclerView.LayoutManager layoutManagerRecipe;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initToolbar = new InitToolbar(this);
-        this.setSupportActionBar(initToolbar.getToolbar());
-        initToolbar.init(this.getSupportActionBar());
+        toolbar = this.findViewById(R.id.toolbar);
+        this.setSupportActionBar(toolbar);
 
-
+        final ActionBar actionBar = this.getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         recyclerViewRecipe = findViewById(R.id.list_details);
         recyclerViewRecipe.setHasFixedSize(true);
@@ -60,53 +62,88 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
             e.printStackTrace();
         }
 
-        myRecipeAdapter = new RecipeAdapter(this, (Context) MainActivity.this, RecipeCollection.recipesList);
+        myRecipeAdapter = new RecipeAdapter(this,(Context) MainActivity.this, RecipeCollection.recipesList);
         recyclerViewRecipe.setAdapter(myRecipeAdapter);
 
+        drawerLayout = this.findViewById(R.id.drawer_layout);
+        navigationView = this.findViewById(R.id.navigationView);
 
-        String email;
-        String password;
 
-        if (PreferenceUtils.getEmail(getApplicationContext()) != null) {
-            email = PreferenceUtils.getEmail(getApplicationContext());
-            password = PreferenceUtils.getPassword(getApplicationContext());
-
-            CountDownLatch latch2 = new CountDownLatch(1);
-            AccessLoader accessLoader = new AccessLoader((Context) MainActivity.this, latch2);
-            accessLoader.execute("login", email, password);
-            try {
-                latch2.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        if (User.getIsLog()){
+            navigationView.getMenu().findItem(R.id.nav2).setTitle(R.string.menu_2l);
+            navigationView.getMenu().findItem(R.id.nav2).setIcon(R.drawable.ic_user);
+        }else{
+            navigationView.getMenu().findItem(R.id.nav5).setVisible(false);
         }
 
-        initToolbar.getNavigationView().setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                if (initToolbar.setOnNavigationItemSelected(menuItem)){
-                    startActivity(initToolbar.getIntent());
-                    //TODO settare i backbutton con Intent precedente;
-                    return true;
+
+                switch (menuItem.getItemId()){
+                    case R.id.nav1:
+                        menuItem.setChecked(true);
+                        displayMessage("ciao"+menuItem.getItemId());
+                        drawerLayout.closeDrawers();
+                        return true;
+                    case R.id.nav2:
+                        if (User.getIsLog()){
+
+                        }else{
+                            menuItem.setChecked(true);
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                            startActivity(intent);
+                        }
+                        drawerLayout.closeDrawers();
+                        return true;
+                    case R.id.nav3:
+                        menuItem.setChecked(true);
+                        menuItem.setChecked(true);
+                        Intent intentF = new Intent(getApplicationContext(), FilterActivity.class);
+                        startActivity(intentF);
+                        drawerLayout.closeDrawers();
+                        return true;
+                    case R.id.nav4:
+                        menuItem.setChecked(true);
+                        displayMessage("ciao"+menuItem.getItemId());
+                        drawerLayout.closeDrawers();
+                        return true;
+                    case R.id.nav5:
+                        menuItem.setChecked(true);
+                        displayMessage("ciao"+menuItem.getItemId());
+                        PreferenceUtils.logout(getApplicationContext());
+                        Intent intentM = new Intent(getApplicationContext(), FilterActivity.class);
+                        startActivity(intentM);
+                        drawerLayout.closeDrawers();
+                        return true;
                 }
                 return false;
             }
         });
+    }
 
+    private void displayMessage(String message){
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        if(initToolbar.setOnOptionsItemSelected(item)) return true;
-        else return super.onOptionsItemSelected(item);
-    }
 
+        switch (item.getItemId()){
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onItemClicked(int index) {
         Intent intent = new Intent(MainActivity.this, DetailsActivity.class );
         intent.putExtra("recipeIndex", index);
         startActivity(intent);
-        //Toast.makeText(this,"item selected" + RecipeCollection.recipesList.get(index).toString(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"item selected" + RecipeCollection.recipesList.get(index).toString(),Toast.LENGTH_SHORT).show();
     }
 }
