@@ -1,27 +1,28 @@
 package com.eatoday;
 
-import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewStub;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioGroup;
+import android.widget.Switch;
+import android.widget.Toast;
 
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.eatoday.model.Ingredient;
 import com.eatoday.model.RecipeCollection;
-import com.eatoday.service.IngredientLoader;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
 
 
 public class FilterActivity extends AppCompatActivity {
@@ -32,7 +33,17 @@ public class FilterActivity extends AppCompatActivity {
     ListView listViewNO;
     EditText ingredientNO;
     Button btnNO;
-
+    Button btnBack;
+    Button btnSearch;
+    Switch vegetarian;
+    Switch vegan;
+    boolean isVegetarian = false;
+    boolean isVegan = false;
+    ArrayList<String> listIngredientsOK;
+    ArrayList<String> listIngredientsNO;
+    ArrayList<Integer> ids;
+    ArrayList<Integer> idOK;
+    ArrayList<Integer> idNO;
 
 
     @Override
@@ -40,6 +51,7 @@ public class FilterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.filter_main);
         setTitle(R.string.app_name);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         listViewOK = findViewById(R.id.list_ingredients_ok);
         listViewNO = findViewById(R.id.list_ingredients_no);
@@ -47,89 +59,159 @@ public class FilterActivity extends AppCompatActivity {
         ingredientNO = findViewById(R.id.edit_ingredient_no);
         btnOK = findViewById(R.id.btn_ok);
         btnNO = findViewById(R.id.btn_no);
-/*
-        CountDownLatch latch = new CountDownLatch(1);
-        IngredientLoader ingredientLoader = new IngredientLoader((Context) FilterActivity.this, latch);
-        ingredientLoader.execute();
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
+        btnBack = findViewById(R.id.btn_back_filter);
+        btnSearch = findViewById(R.id.btn_ord_filter);
+        vegetarian = findViewById(R.id.vegetarian);
+        vegan = findViewById(R.id.vegan);
+
+        ids = new ArrayList<>();
+        idOK = new ArrayList<>();
+        idNO = new ArrayList<>();
+        listIngredientsOK = new ArrayList<>();
+        listIngredientsNO = new ArrayList<>();
 
 
+        btnOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String ingredientName = ingredientOK.getText().toString().trim();
+                ArrayList<String> list = new ArrayList<String>();
+                for(Ingredient in : RecipeCollection.ingredientsList){
+                    if(in.toString().contains(ingredientName)){
+                        list.add(in.getName());
+                        ids.add(in.getId());
+                    }
+                }
+                final ArrayAdapter< String > adapter = new ArrayAdapter < String >
+                        (FilterActivity.this, android.R.layout.simple_list_item_1,
+                                list);
 
-/*
-        Intent intent = getIntent();
-        if (intent.hasExtra("recipeIndex")) {
-            index = getIntent().getIntExtra("recipeIndex",0);
-            tvName.setText(RecipeCollection.recipesList.get(index).getName());
-            Glide.with(this.getApplicationContext())
-                    .load(RecipeCollection.recipesList.get(index).getImageUrl())
-                    .placeholder(R.drawable.ic_broken_image_black_24dp)
-                    .into(ivImageRecipe);
-        }
-        ViewGroup.LayoutParams layoutParams = ivImageRecipe.getLayoutParams();
-        layoutParams.height = 500;
-        ivImageRecipe.setLayoutParams(layoutParams);
+                AlertDialog.Builder builder=new AlertDialog.Builder(FilterActivity.this);
+                builder.setTitle("Ingredienti trovati");
+                builder.setMessage("Selezionare l'ingrediente corretto");
+                DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String add = adapter.getItem(i);
+                        int id = ids.get(i);
+                        idOK.add(id);
+                        ids.clear();
+                        listIngredientsOK.add(add);
+                        addToListView(listViewOK, listIngredientsOK);
+                    }
+                };
+                builder.setAdapter(adapter,listener);
+                AlertDialog alertDialog = builder.create();
+                ListView listView = alertDialog.getListView();
+                listView.setDividerHeight(listView.getScrollBarSize());
+                listView.setEnabled(true);
+                alertDialog.setView(listView);
+                alertDialog.show();
+            }
+        });
 
-        recyclerViewIngredient = findViewById(R.id.list_ingredients);
-        recyclerViewIngredient.setHasFixedSize(true);
+        btnNO.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String ingredientName = ingredientNO.getText().toString().trim();
+                ArrayList<String> list = new ArrayList<String>();
+                for(Ingredient in : RecipeCollection.ingredientsList){
+                    if(in.toString().contains(ingredientName)){
+                        list.add(in.getName());
+                        ids.add(in.getId());
+                    }
+                }
+                final ArrayAdapter< String > adapter = new ArrayAdapter < String >
+                        (FilterActivity.this, android.R.layout.simple_list_item_1,
+                                list);
 
-        myIngredientAdapter = new IngredientAdapter(this,(Context) DetailsActivity.this, RecipeCollection.recipesList.get(index).getIngredients());
-        recyclerViewIngredient.setAdapter(myIngredientAdapter);
+                AlertDialog.Builder builder=new AlertDialog.Builder(FilterActivity.this);
+                builder.setTitle("Ingredienti trovati");
+                builder.setMessage("Selezionare l'ingrediente corretto");
+                DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String add = adapter.getItem(i);
+                        int id = ids.get(i);
+                        idNO.add(id);
+                        ids.clear();
+                        listIngredientsNO.add(add);
+                        addToListView(listViewNO, listIngredientsNO);
+                    }
+                };
+                builder.setAdapter(adapter,listener);
+                AlertDialog alertDialog = builder.create();
+                ListView listView = alertDialog.getListView();
+                listView.setDividerHeight(listView.getScrollBarSize());
+                listView.setEnabled(true);
+                alertDialog.setView(listView);
+                alertDialog.show();
+            }
+        });
 
-        layoutManagerIngredient = new LinearLayoutManager(this);
-        recyclerViewIngredient.setLayoutManager(layoutManagerIngredient);
+        vegetarian.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    vegan.setChecked(false);
+                    isVegetarian = true;
+                    isVegan = false;
+                }
+            }
+        });
 
+        vegan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    vegetarian.setChecked(false);
+                    isVegan = true;
+                    isVegetarian = false;
+                }
+            }
+        });
 
-        Intent intent = getIntent();
-        if (intent.hasExtra()) {
-            String nameFromIntent = getIntent().getStringExtra(Constant.KEY_EMAIL);
-            email.setText(nameFromIntent);
-        }
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
-
-
-
-
-            RecyclerView recyclerViewIngredient;
-    RecyclerView.LayoutManager layoutManagerIngredient;
-    ImageView ivImageRecipe;
-    TextView tvName;
-    IngredientAdapter myIngredientAdapter;
-    int index;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.details_main);
-        setTitle(R.string.app_name);
-
-        ivImageRecipe = findViewById(R.id.imageViewOfRecipe);
-        tvName = findViewById(R.id.tvName);
-
-        Intent intent = getIntent();
-        if (intent.hasExtra("recipeIndex")) {
-            index = getIntent().getIntExtra("recipeIndex",0);
-            tvName.setText(RecipeCollection.recipesList.get(index).getName());
-            Glide.with(this.getApplicationContext())
-                    .load(RecipeCollection.recipesList.get(index).getImageUrl())
-                    .placeholder(R.drawable.ic_broken_image_black_24dp)
-                    .into(ivImageRecipe);
-        }
-        ViewGroup.LayoutParams layoutParams = ivImageRecipe.getLayoutParams();
-        layoutParams.height = 500;
-        ivImageRecipe.setLayoutParams(layoutParams);
-
-        recyclerViewIngredient = findViewById(R.id.list_ingredients);
-        recyclerViewIngredient.setHasFixedSize(true);
-
-        myIngredientAdapter = new IngredientAdapter(this,(Context) DetailsActivity.this, RecipeCollection.recipesList.get(index).getIngredients());
-        recyclerViewIngredient.setAdapter(myIngredientAdapter);
-
-        layoutManagerIngredient = new LinearLayoutManager(this);
-        recyclerViewIngredient.setLayoutManager(layoutManagerIngredient);
-*/
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                //String get = "?" + "id"
+                startActivity(intent);
+            }
+        });
     }
+
+
+    private void addToListView(ListView listView, ArrayList<String> listElements){
+
+        final ArrayAdapter< String > adapter = new ArrayAdapter < String >
+                (FilterActivity.this, android.R.layout.simple_list_item_1,
+                        listElements);
+
+        listView.setAdapter(adapter);
+
+        ViewGroup vg = listView;
+        int totalHeight = 0;
+        for (int i = 0; i < adapter.getCount(); i++) {
+            View listItem = adapter.getView(i, null, vg);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams par = listView.getLayoutParams();
+        par.height = totalHeight + (listView.getDividerHeight() * (adapter.getCount() - 1));
+        listView.setLayoutParams(par);
+        listView.requestLayout();
+        listView.setScrollContainer(false);
+
+        adapter.notifyDataSetChanged();
+        ingredientOK.getText().clear();
+        ingredientNO.getText().clear();
+    }
+
 }

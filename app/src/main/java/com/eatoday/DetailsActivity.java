@@ -1,6 +1,5 @@
 package com.eatoday;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,8 +24,8 @@ public class DetailsActivity extends AppCompatActivity {
     ListView listViewIngredient;
     ImageView ivImageRecipe;
     TextView tvName;
-    //Button btnBack;
-    //Button btnOrd;
+    Button btnBack;
+    Button btnOrd;
     int index;
 
     @Override
@@ -38,8 +36,8 @@ public class DetailsActivity extends AppCompatActivity {
 
         ivImageRecipe = findViewById(R.id.imageViewOfRecipe);
         tvName = findViewById(R.id.tvName);
-        //btnBack = findViewById(R.id.btn_back);
-        //btnOrd = findViewById(R.id.btn_ord);
+        btnBack = findViewById(R.id.btn_back);
+        btnOrd = findViewById(R.id.btn_ord);
 
         Intent intent = getIntent();
         if (intent.hasExtra("recipeIndex")) {
@@ -84,7 +82,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         adapter.notifyDataSetChanged();
 
-/*
+
         btnOrd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,11 +93,9 @@ public class DetailsActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentM = new Intent(DetailsActivity.this, MainActivity.class);
-                startActivity(intentM);
-                finish();
+                onBackPressed();
             }
-        });*/
+        });
 /*
         Intent intent = getIntent();
         if (intent.hasExtra()) {

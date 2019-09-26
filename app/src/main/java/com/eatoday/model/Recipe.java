@@ -125,4 +125,19 @@ public class Recipe {
         String url = Constant.IMAGES_PATH + name.replaceAll(" ","_") + Constant.PNG;
         return  url;
     }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", time='" + time + '\'' +
+                ", difficulty='" + difficulty + '\'' +
+                ", price='" + price + '\'' +
+                ", type='" + type + '\'' +
+                ", description='" + description + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", ingredients=" + ingredients +
+                '}';
+    }
 }

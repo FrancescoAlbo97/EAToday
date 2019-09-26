@@ -65,4 +65,9 @@ public class Ingredient {
     public void setStore(String store) {
         this.store = store;
     }
+
+    @Override
+    public String toString() {
+        return "Ingrediente: " + name + '\'' + ", del " + store;
+    }
 }

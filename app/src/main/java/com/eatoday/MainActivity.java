@@ -15,14 +15,17 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.eatoday.model.Ingredient;
 import com.eatoday.model.RecipeCollection;
 import com.eatoday.model.User;
+import com.eatoday.service.IngredientLoader;
 import com.eatoday.service.RecipeLoader;
 import com.eatoday.ui.recipes.RecipeAdapter;
 
 import com.eatoday.util.PreferenceUtils;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
 public class MainActivity extends AppCompatActivity implements RecipeAdapter.ItemClicked{
@@ -58,6 +61,16 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
 
         myRecipeAdapter = new RecipeAdapter(this,(Context) MainActivity.this, RecipeCollection.recipesList);
         recyclerViewRecipe.setAdapter(myRecipeAdapter);
+
+        CountDownLatch latch1 = new CountDownLatch(1);
+        IngredientLoader ingredientLoader = new IngredientLoader((Context) MainActivity.this, latch1);
+        ingredientLoader.execute();
+        ArrayList<Ingredient> ingredients = ingredientLoader.arrayList;
+        try {
+            latch1.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
     }

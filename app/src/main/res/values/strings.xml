@@ -11,4 +11,5 @@
     <string name="menu_5l">Logout</string>
     <string name="quali_ingredienti_vorresti_includere">Quali ingredienti vorresti includere?</string>
     <string name="quali_ingredienti_vorresti_escludere">Quali ingredienti vorresti escludere?</string>
+    <string name="filtra_titolo">Cosa vorresti preparare?</string>
 </resources>
