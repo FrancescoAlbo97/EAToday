@@ -15,7 +15,7 @@
         app:cardUseCompatPadding="false"
         app:cardPreventCornerOverlap="false"
         android:padding="@dimen/card_view_margin"
-        android:layout_margin="7dp"
+        android:layout_margin="@dimen/paragraf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

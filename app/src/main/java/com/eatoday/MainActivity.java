@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.eatoday.model.Ingredient;
@@ -37,12 +39,14 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
     RecyclerView recyclerViewRecipe;
     RecyclerView.Adapter myRecipeAdapter;
     RecyclerView.LayoutManager layoutManagerRecipe;
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initSearchView();
         initToolbar();
 
         recyclerViewRecipe = findViewById(R.id.list_details);
@@ -148,6 +152,24 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
             }
         });
 
+    }
+
+    private void initSearchView(){
+        searchView = findViewById(R.id.search_by_name);
+        searchView.setQueryHint("Cerca tra le ricette...");
+        //searchView.expandActionView();
+        searchView.setBackgroundColor(Color.WHITE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String text) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String text) {
+                return false;
+            }
+        });
     }
 
     @Override

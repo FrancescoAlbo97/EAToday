@@ -249,7 +249,7 @@ public class FilterActivity extends AppCompatActivity {
                 }
                 if(isVegetarian){
                     if(!get.equals("?")) get += "&";
-                    get += Constant.TYPE + "vegano,vegetariano";
+                    get += Constant.TYPE + "vegetariano";
                 }
                 if(isVegan){
                     if(!get.equals("?")) get += "&";

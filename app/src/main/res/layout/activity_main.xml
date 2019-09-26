@@ -10,21 +10,41 @@
     android:fitsSystemWindows="true"
     >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/main_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
         <include
             layout="@layout/toolbar_layout"/>
 
+
         <include
             layout="@layout/content_main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"/>
 
-    </LinearLayout>
+        </LinearLayout>
+
+
+        <SearchView
+            android:id="@+id/search_by_name"
+            android:iconifiedByDefault="false"
+            android:layout_margin="@dimen/paragraf"
+            android:padding="@dimen/paragraf"
+            android:layout_alignBottom="@id/main_layout"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
 
 
     <com.google.android.material.navigation.NavigationView
