@@ -35,13 +35,17 @@
 
         <SearchView
             android:id="@+id/search_by_name"
-            android:iconifiedByDefault="false"
-            android:layout_margin="@dimen/paragraf"
-            android:padding="@dimen/paragraf"
-            android:layout_alignBottom="@id/main_layout"
-
+            style="@android:style/Widget.Material.Light.SearchView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/main_layout"
+            android:layout_marginStart="@dimen/paragraf"
+            android:layout_marginTop="@dimen/paragraf"
+            android:layout_marginEnd="@dimen/paragraf"
+            android:layout_marginBottom="@dimen/paragraf"
+            android:iconifiedByDefault="false"
+            android:paddingLeft="@dimen/paragraf"
+            android:paddingRight="@dimen/paragraf" />
 
 
     </RelativeLayout>

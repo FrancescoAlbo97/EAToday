@@ -102,6 +102,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         ViewGroup.LayoutParams paramsBottom = holder.linearLayoutBottom.getLayoutParams();
         paramsBottom.height = 150;
         holder.linearLayoutBottom.setLayoutParams(paramsBottom);
+
+        if(position == (recipes.size() -1)){
+            holder.itemView.setPadding(0,0,0,200);
+        }
         /*
         ViewGroup.LayoutParams params = holder.imageVTime.getLayoutParams();
         params.width=150;

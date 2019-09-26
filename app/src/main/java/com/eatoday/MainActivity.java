@@ -18,6 +18,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.eatoday.model.Ingredient;
+import com.eatoday.model.Recipe;
 import com.eatoday.model.RecipeCollection;
 import com.eatoday.model.User;
 import com.eatoday.service.IngredientLoader;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    ArrayList<Recipe> arrayListOnSearch;
     RecyclerView recyclerViewRecipe;
     RecyclerView.Adapter myRecipeAdapter;
     RecyclerView.LayoutManager layoutManagerRecipe;
@@ -158,15 +160,32 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         searchView = findViewById(R.id.search_by_name);
         searchView.setQueryHint("Cerca tra le ricette...");
         //searchView.expandActionView();
-        searchView.setBackgroundColor(Color.WHITE);
+        searchView.setBackgroundResource(R.drawable.search);
+        arrayListOnSearch = new ArrayList<>();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String text) {
+                ArrayList<Recipe> arrayList = RecipeCollection.searchRecipesByName(text);
+                if (!arrayListOnSearch.equals(arrayList)){
+                    myRecipeAdapter = new RecipeAdapter(MainActivity.this,(Context) MainActivity.this,arrayList);
+                    recyclerViewRecipe.setAdapter(myRecipeAdapter);
+                    myRecipeAdapter.notifyDataSetChanged();
+                    arrayListOnSearch.clear();
+                    arrayListOnSearch = arrayList;
+                }
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String text) {
+                ArrayList<Recipe> arrayList = RecipeCollection.searchRecipesByName(text);
+                if (!arrayListOnSearch.equals(arrayList)){
+                    myRecipeAdapter = new RecipeAdapter(MainActivity.this,(Context) MainActivity.this,arrayList);
+                    recyclerViewRecipe.setAdapter(myRecipeAdapter);
+                    myRecipeAdapter.notifyDataSetChanged();
+                    arrayListOnSearch.clear();
+                    arrayListOnSearch = arrayList;
+                }
                 return false;
             }
         });
