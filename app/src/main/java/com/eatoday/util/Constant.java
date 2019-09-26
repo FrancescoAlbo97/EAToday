@@ -10,4 +10,8 @@ public class Constant {
     final public static String KEY_PASSWORD = "password";
     final public static String IMAGES_PATH = "http://eatoday.altervista.org/images/";
     final public static String PNG = ".png";
+    final public static String SELECTED = "selected=";
+    final public static String EXCLUDED = "excluded=";
+    final public static String TYPE = "type=";
+    final public static String DIFFICULTY = "difficulty=";
 }

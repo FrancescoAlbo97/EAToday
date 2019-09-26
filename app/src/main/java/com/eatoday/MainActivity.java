@@ -22,6 +22,7 @@ import com.eatoday.service.IngredientLoader;
 import com.eatoday.service.RecipeLoader;
 import com.eatoday.ui.recipes.RecipeAdapter;
 
+import com.eatoday.util.Constant;
 import com.eatoday.util.PreferenceUtils;
 import com.google.android.material.navigation.NavigationView;
 
@@ -49,9 +50,14 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         layoutManagerRecipe = new LinearLayoutManager(this);
         recyclerViewRecipe.setLayoutManager(layoutManagerRecipe);
 
+        Intent intent = getIntent();
+        String get = "";
+        if (intent.hasExtra("getRequest")){
+            get = getIntent().getStringExtra("getRequest");
+        }
         CountDownLatch latch = new CountDownLatch(1);
         RecipeLoader recipeLoader = new RecipeLoader((Context) MainActivity.this, latch);
-        recipeLoader.execute("");
+        recipeLoader.execute(get);
 
         try {
             latch.await();

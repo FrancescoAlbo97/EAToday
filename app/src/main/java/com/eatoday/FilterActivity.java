@@ -12,21 +12,25 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.eatoday.model.Ingredient;
 import com.eatoday.model.RecipeCollection;
+import com.eatoday.util.Constant;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class FilterActivity extends AppCompatActivity {
-    //prima scarico gli ingredienti, poi con il nome, se esiste lo aggiungo, altrimenti Toast che non esiste
+
     ListView listViewOK;
     EditText ingredientOK;
     Button btnOK;
@@ -37,13 +41,16 @@ public class FilterActivity extends AppCompatActivity {
     Button btnSearch;
     Switch vegetarian;
     Switch vegan;
+    SeekBar seekBar;
     boolean isVegetarian = false;
     boolean isVegan = false;
+    String difficulty = "";
     ArrayList<String> listIngredientsOK;
     ArrayList<String> listIngredientsNO;
     ArrayList<Integer> ids;
     ArrayList<Integer> idOK;
     ArrayList<Integer> idNO;
+
 
 
     @Override
@@ -63,6 +70,7 @@ public class FilterActivity extends AppCompatActivity {
         btnSearch = findViewById(R.id.btn_ord_filter);
         vegetarian = findViewById(R.id.vegetarian);
         vegan = findViewById(R.id.vegan);
+        seekBar = findViewById(R.id.difficulty);
 
         ids = new ArrayList<>();
         idOK = new ArrayList<>();
@@ -87,26 +95,30 @@ public class FilterActivity extends AppCompatActivity {
                                 list);
 
                 AlertDialog.Builder builder=new AlertDialog.Builder(FilterActivity.this);
-                builder.setTitle("Ingredienti trovati");
-                builder.setMessage("Selezionare l'ingrediente corretto");
-                DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        String add = adapter.getItem(i);
-                        int id = ids.get(i);
-                        idOK.add(id);
-                        ids.clear();
-                        listIngredientsOK.add(add);
-                        addToListView(listViewOK, listIngredientsOK);
-                    }
-                };
-                builder.setAdapter(adapter,listener);
-                AlertDialog alertDialog = builder.create();
-                ListView listView = alertDialog.getListView();
-                listView.setDividerHeight(listView.getScrollBarSize());
-                listView.setEnabled(true);
-                alertDialog.setView(listView);
-                alertDialog.show();
+                if(ids.isEmpty()){
+                    Toast.makeText(FilterActivity.this,"Nessuno ingrediente trovato",Toast.LENGTH_SHORT).show();
+                }else{
+                    builder.setTitle("Ingredienti trovati");
+                    builder.setMessage("Selezionare l'ingrediente corretto");
+                    DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            String add = adapter.getItem(i);
+                            int id = ids.get(i);
+                            idOK.add(id);
+                            ids.clear();
+                            listIngredientsOK.add(add);
+                            addToListView(listViewOK, listIngredientsOK);
+                        }
+                    };
+                    builder.setAdapter(adapter,listener);
+                    AlertDialog alertDialog = builder.create();
+                    ListView listView = alertDialog.getListView();
+                    listView.setDividerHeight(listView.getScrollBarSize());
+                    listView.setEnabled(true);
+                    alertDialog.setView(listView);
+                    alertDialog.show();
+                }
             }
         });
 
@@ -126,35 +138,41 @@ public class FilterActivity extends AppCompatActivity {
                                 list);
 
                 AlertDialog.Builder builder=new AlertDialog.Builder(FilterActivity.this);
-                builder.setTitle("Ingredienti trovati");
-                builder.setMessage("Selezionare l'ingrediente corretto");
-                DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        String add = adapter.getItem(i);
-                        int id = ids.get(i);
-                        idNO.add(id);
-                        ids.clear();
-                        listIngredientsNO.add(add);
-                        addToListView(listViewNO, listIngredientsNO);
-                    }
-                };
-                builder.setAdapter(adapter,listener);
-                AlertDialog alertDialog = builder.create();
-                ListView listView = alertDialog.getListView();
-                listView.setDividerHeight(listView.getScrollBarSize());
-                listView.setEnabled(true);
-                alertDialog.setView(listView);
-                alertDialog.show();
+                if(ids.isEmpty()){
+                    Toast.makeText(FilterActivity.this,"Nessuno ingrediente trovato",Toast.LENGTH_SHORT).show();
+                }else{
+                    builder.setTitle("Ingredienti trovati");
+                    builder.setMessage("Selezionare l'ingrediente corretto");
+                    DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            String add = adapter.getItem(i);
+                            int id = ids.get(i);
+                            idNO.add(id);
+                            ids.clear();
+                            listIngredientsNO.add(add);
+                            addToListView(listViewNO, listIngredientsNO);
+                        }
+                    };
+                    builder.setAdapter(adapter,listener);
+                    AlertDialog alertDialog = builder.create();
+                    ListView listView = alertDialog.getListView();
+                    listView.setDividerHeight(listView.getScrollBarSize());
+                    listView.setEnabled(true);
+                    alertDialog.setView(listView);
+                    alertDialog.show();
+                }
             }
         });
 
         vegetarian.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    vegan.setChecked(false);
                     isVegetarian = true;
-                    isVegan = false;
+                    isVegan = true;
+                    vegan.setChecked(true);
+                }else{
+                    isVegetarian = false;
                 }
             }
         });
@@ -162,10 +180,39 @@ public class FilterActivity extends AppCompatActivity {
         vegan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    vegetarian.setChecked(false);
                     isVegan = true;
-                    isVegetarian = false;
+                }else{
+                    isVegan = false;
                 }
+            }
+        });
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                switch (i){
+                    case (1):
+                        difficulty = "facile";
+                        break;
+                    case (2):
+                        difficulty = "medio";
+                        break;
+                    case (3):
+                        difficulty = "difficile";
+                        break;
+                    default:
+                        difficulty = "";
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
             }
         });
 
@@ -180,7 +227,40 @@ public class FilterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                //String get = "?" + "id"
+                String get = "?";
+                if(!idOK.isEmpty()){
+                    get += Constant.SELECTED;
+                    int size = idOK.size() - 1;
+                    for(int i= 0; i < size ; i++){
+                        get += String.valueOf(idOK.get(i));
+                        get += ",";
+                    }
+                    get += String.valueOf(idOK.get(size));
+                }
+                if(!idNO.isEmpty()){
+                    if(!get.equals("?")) get += "&";
+                    get += Constant.EXCLUDED;
+                    int size = idNO.size() - 1;
+                    for(int i= 0; i < size ; i++){
+                        get += String.valueOf(idNO.get(i));
+                        get += ",";
+                    }
+                    get += String.valueOf(idNO.get(size));
+                }
+                if(isVegetarian){
+                    if(!get.equals("?")) get += "&";
+                    get += Constant.TYPE + "vegano,vegetariano";
+                }
+                if(isVegan){
+                    if(!get.equals("?")) get += "&";
+                    get += Constant.TYPE + "vegano";
+                }
+                if(!difficulty.equals("")){
+                    if(!get.equals("?")) get += "&";
+                    get += Constant.DIFFICULTY + difficulty;
+                }
+                intent.putExtra("getRequest", get);
+                finish();
                 startActivity(intent);
             }
         });
