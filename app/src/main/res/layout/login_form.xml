@@ -12,6 +12,7 @@
         android:textSize="25dp"
         android:textStyle="bold"
         android:layout_gravity="center"/>
+
     <TextView
         android:id="@+id/email_text"
         android:layout_width="wrap_content"
@@ -19,11 +20,13 @@
         android:layout_marginLeft="100dp"
         android:layout_marginTop="20dp"
         android:text="Email"/>
+
     <EditText
         android:id="@+id/email_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
+        android:inputType="textEmailAddress"
         android:ems="10"/>
     <TextView
         android:id="@+id/password_text"

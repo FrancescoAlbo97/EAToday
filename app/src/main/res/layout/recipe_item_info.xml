@@ -79,7 +79,7 @@
             android:layout_weight="1"
             android:textAlignment="textStart"
             android:textColor="@color/colorSecondaryText"
-            android:textSize="@dimen/size_font_info_recipe"  />
+            android:textSize="16dp"  />
 
         <ImageView
             android:id="@+id/imageVType"
@@ -96,7 +96,7 @@
             android:layout_weight="1"
             android:textAlignment="textStart"
             android:textColor="@color/colorSecondaryText"
-            android:textSize="@dimen/size_font_info_recipe"  />
+            android:textSize="16sp"  />
 
     </LinearLayout>
 <!--
