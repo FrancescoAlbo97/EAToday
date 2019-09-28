@@ -6,11 +6,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.widget.ProgressBar;
 
 import com.eatoday.model.User;
 import com.eatoday.util.Constant;
 import com.eatoday.util.PreferenceUtils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,8 +30,9 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
     private Context context;
     private Activity activity;
     private AlertDialog.Builder builder;
-    private ProgressDialog progressDialog;
+    private ProgressBar progressBar;
     private CountDownLatch latch;
+    private User user;
 
 
     public AccessLoader(Context context, CountDownLatch latch) {
@@ -37,20 +40,19 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
         this.activity = (Activity) context;
         this.latch = latch;
     }
-
+/*
     @Override
     protected void onPreExecute() {
         builder = new AlertDialog.Builder(activity);
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setTitle("Please wait...");
-        progressDialog.setMessage("Connecting to server");
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-    }
+        progressBar = new ProgressBar(context);
+        progressBar.setIndeterminate(true);
+        progressBar.setClickable(false);
+        progressBar.showContextMenu();
+    }*/
 
     @Override
     protected String doInBackground(String... params) {
+
         String method = params[0];
         try {
             if (method.equals("register")) {
@@ -64,6 +66,9 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
                 jsonObject.put("email", email);
                 jsonObject.put("password", password);
                 String json = connectionResult(url, jsonObject);
+                if(onPost(json)){
+                    PreferenceUtils.saveEmail(email, context);
+                }
                 latch.countDown();
                 return json;
 
@@ -77,13 +82,14 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
                 jsonObject.put("password", password);
                 String json = connectionResult(url, jsonObject);
 
-                progressDialog.dismiss();
-                if(saveUser(email,password)){
-                    User.setIsLog(true);
-                    latch.countDown();
-                    return json;
+               // progressDialog.dismiss();
+
+                if(onPost(json)){
+                    saveUser(json);
                 }
-                //return json;
+                latch.countDown();
+                return json;
+                //{"user":{"name":"lollo","lastName":"scoppo","email":"lollo@gmail.com","password":"lollo","address":"via merendine"},"server_response":[{"code":"login_true","message":"Login success"}]}
 
             }
         } catch (MalformedURLException | JSONException e) {
@@ -140,6 +146,38 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
         }
         return null;
     }
+
+    private boolean onPost(String json) {
+
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            JSONArray jsonArray = jsonObject.getJSONArray("server_response");
+            JSONObject newJsonObject = jsonArray.getJSONObject(0);
+            String code = newJsonObject.getString("code");
+            String message = newJsonObject.getString("message");
+
+            if (code.equals("register_true")){
+                showDialog("Registration success",message,code);
+                return true;
+            }
+            else if(code.equals("register_false")){
+                showDialog("Registration failed",message,code);
+                return false;
+            }
+            else if(code.equals("login_true")){
+                //showDialog("Login success",message,code);
+                return true;
+            }
+            else if(code.equals("login_false")){
+                showDialog("Login failed",message,code);
+                return false;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 /*
     @Override
     protected void onPostExecute(String json) {
@@ -182,14 +220,31 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
 
                 //gestire problema di chiusura comunque vada
 
-                activity.finish();
             }
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
 
-    private boolean saveUser(String email,String password){
-        return (PreferenceUtils.saveEmail(email, context) && PreferenceUtils.savePassword(password, context));
+    private void saveUser(String json) throws JSONException {
+        JSONObject jsonObject = new JSONObject(json);
+        JSONObject userJson = jsonObject.getJSONObject("user");
+        user = new User(
+                userJson.getString("name"),
+                userJson.getString("lastName"),
+                userJson.getString("email"),
+                userJson.getString("password"),
+                userJson.getString("address")
+                );
+        PreferenceUtils.saveEmail(user.getEmail(), context);
+        PreferenceUtils.savePassword(user.getPassword(), context);
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

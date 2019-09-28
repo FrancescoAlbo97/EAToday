@@ -37,11 +37,11 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    ArrayList<Recipe> arrayListOnSearch;
-    RecyclerView recyclerViewRecipe;
-    RecyclerView.Adapter myRecipeAdapter;
-    RecyclerView.LayoutManager layoutManagerRecipe;
-    SearchView searchView;
+    private ArrayList<Recipe> arrayListOnSearch;
+    private RecyclerView recyclerViewRecipe;
+    private RecyclerView.Adapter myRecipeAdapter;
+    private RecyclerView.LayoutManager layoutManagerRecipe;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

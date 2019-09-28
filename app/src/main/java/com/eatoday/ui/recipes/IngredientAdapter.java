@@ -18,9 +18,9 @@ import java.util.ArrayList;
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
 
     private ArrayList<Ingredient> ingredients;
-    ItemClicked activity;
-    Context context;
-    Activity thisClass;
+    private ItemClicked activity;
+    private Context context;
+    private Activity thisClass;
 
 
     public IngredientAdapter(Activity thisClass, Context context, ArrayList<Ingredient> list){

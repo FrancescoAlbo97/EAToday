@@ -21,9 +21,9 @@ import java.util.ArrayList;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
 
     private ArrayList<Recipe> recipes;
-    ItemClicked activity;
-    Context context;
-    Activity thisClass;
+    private ItemClicked activity;
+    private Context context;
+    private Activity thisClass;
 
 
     public RecipeAdapter(Activity thisClass, Context context, ArrayList<Recipe> list){
@@ -39,18 +39,18 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView ivImageRecipe;
-        ImageView imageVTime;
-        ImageView imageVPrice;
-        ImageView imageVDifficulty;
-        ImageView imageVType;
-        TextView tvRecipeName;
-        TextView tvRecipeTime;
-        TextView tvRecipeDifficulty;
-        TextView tvRecipePrice;
-        TextView tvRecipeType;
-        LinearLayout linearLayoutTop;
-        LinearLayout linearLayoutBottom;
+        private ImageView ivImageRecipe;
+        private ImageView imageVTime;
+        private ImageView imageVPrice;
+        private ImageView imageVDifficulty;
+        private ImageView imageVType;
+        private TextView tvRecipeName;
+        private TextView tvRecipeTime;
+        private TextView tvRecipeDifficulty;
+        private TextView tvRecipePrice;
+        private TextView tvRecipeType;
+        private LinearLayout linearLayoutTop;
+        private LinearLayout linearLayoutBottom;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

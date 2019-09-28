@@ -21,12 +21,12 @@ import java.util.List;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    ListView listViewIngredient;
-    ImageView ivImageRecipe;
-    TextView tvName;
-    Button btnBack;
-    Button btnOrd;
-    int index;
+    private ListView listViewIngredient;
+    private ImageView ivImageRecipe;
+    private TextView tvName;
+    private Button btnBack;
+    private Button btnOrd;
+    private int index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

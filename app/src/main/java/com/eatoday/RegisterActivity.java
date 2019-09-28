@@ -22,10 +22,10 @@ import java.util.concurrent.CountDownLatch;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText name,email,password,password2;
-    Button registerButton;
-    DatabaseHelper databaseHelper = new DatabaseHelper(this);
-    PreferenceUtils utils = new PreferenceUtils();
+    private EditText name,email,password,password2;
+    private Button registerButton;
+    private DatabaseHelper databaseHelper = new DatabaseHelper(this);
+    private PreferenceUtils utils = new PreferenceUtils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +80,6 @@ public class RegisterActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    intent.putExtra(Constant.KEY_EMAIL, email.getText().toString().trim());
-                    PreferenceUtils.saveEmail(email.getText().toString().trim(), getApplicationContext());
-                    PreferenceUtils.saveEmail(password.getText().toString().trim(), getApplicationContext());
                     startActivity(intent);
                 }
             }

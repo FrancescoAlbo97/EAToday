@@ -31,25 +31,25 @@ import java.util.Iterator;
 
 public class FilterActivity extends AppCompatActivity {
 
-    ListView listViewOK;
-    EditText ingredientOK;
-    Button btnOK;
-    ListView listViewNO;
-    EditText ingredientNO;
-    Button btnNO;
-    Button btnBack;
-    Button btnSearch;
-    Switch vegetarian;
-    Switch vegan;
-    SeekBar seekBar;
-    boolean isVegetarian = false;
-    boolean isVegan = false;
-    String difficulty = "";
-    ArrayList<String> listIngredientsOK;
-    ArrayList<String> listIngredientsNO;
-    ArrayList<Integer> ids;
-    ArrayList<Integer> idOK;
-    ArrayList<Integer> idNO;
+    private ListView listViewOK;
+    private EditText ingredientOK;
+    private Button btnOK;
+    private ListView listViewNO;
+    private EditText ingredientNO;
+    private Button btnNO;
+    private Button btnBack;
+    private Button btnSearch;
+    private Switch vegetarian;
+    private Switch vegan;
+    private SeekBar seekBar;
+    private boolean isVegetarian = false;
+    private boolean isVegan = false;
+    private String difficulty = "";
+    private ArrayList<String> listIngredientsOK;
+    private ArrayList<String> listIngredientsNO;
+    private ArrayList<Integer> ids;
+    private ArrayList<Integer> idOK;
+    private ArrayList<Integer> idNO;
 
 
 
