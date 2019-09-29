@@ -20,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -34,6 +35,7 @@ public class RecipeLoader extends AsyncTask<String, Void, String> {
     private ProgressDialog progressDialog;
     public ArrayList<Recipe> arrayList = new ArrayList<>();
     private CountDownLatch latch;
+    private StringBuilder stringBuilder;
 
     public RecipeLoader(Context context, CountDownLatch latch) {
         this.context = context;
@@ -83,7 +85,7 @@ public class RecipeLoader extends AsyncTask<String, Void, String> {
             if (code == 200) {
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder = new StringBuilder();
                 String line = "";
                 while ((line = bufferedReader.readLine()) != null) {
                     stringBuilder.append(line);
@@ -136,7 +138,7 @@ public class RecipeLoader extends AsyncTask<String, Void, String> {
         RecipeCollection.recipesList = arrayList;
     }*/
 
-    private void serializeJson(String json){
+    private void serializeJson(String json) throws UnsupportedEncodingException {
         try {
             JSONArray jsonArray = new JSONArray(json);
             for(int i=0; i < jsonArray.length(); i++){

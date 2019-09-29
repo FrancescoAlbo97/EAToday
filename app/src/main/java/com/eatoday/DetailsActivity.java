@@ -24,6 +24,7 @@ public class DetailsActivity extends AppCompatActivity {
     private ListView listViewIngredient;
     private ImageView ivImageRecipe;
     private TextView tvName;
+    private TextView description;
     private Button btnBack;
     private Button btnOrd;
     private int index;
@@ -36,6 +37,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         ivImageRecipe = findViewById(R.id.imageViewOfRecipe);
         tvName = findViewById(R.id.tvName);
+        description = findViewById(R.id.textarea);
         btnBack = findViewById(R.id.btn_back);
         btnOrd = findViewById(R.id.btn_ord);
 
@@ -47,6 +49,7 @@ public class DetailsActivity extends AppCompatActivity {
                     .load(RecipeCollection.recipesList.get(index).getImageUrl())
                     .placeholder(R.drawable.ic_broken_image_black_24dp)
                     .into(ivImageRecipe);
+            description.setText(RecipeCollection.recipesList.get(index).getDescription());
         }
         ViewGroup.LayoutParams layoutParams = ivImageRecipe.getLayoutParams();
         layoutParams.height = 500;

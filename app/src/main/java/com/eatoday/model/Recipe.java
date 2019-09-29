@@ -2,6 +2,7 @@ package com.eatoday.model;
 
 import com.eatoday.util.Constant;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 public class Recipe {
@@ -27,10 +28,10 @@ public class Recipe {
         this.imageUrl = createImageUrlByName(name);
     }
 
-    public Recipe(String name, String time, String difficulty, String type, String description, ArrayList<Ingredient> ingredients ) {
+    public Recipe(String name, String time, String difficulty, String type, String description, ArrayList<Ingredient> ingredients ) throws UnsupportedEncodingException {
         this.id = setId();
         this.name = name;
-        this.time = time;
+        this.time = time  + " min";
         this.difficulty = difficulty;
         this.type = type;
         this.description = description;

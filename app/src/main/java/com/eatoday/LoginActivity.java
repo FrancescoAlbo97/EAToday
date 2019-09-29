@@ -37,9 +37,9 @@ public class LoginActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password_input);
         loginButton = (Button) findViewById(R.id.btn_login);
 
-        String mail = PreferenceUtils.getEmail(LoginActivity.this);
-        if(!(mail.isEmpty())){
-            email.setText(mail);
+        Object mail = PreferenceUtils.getEmail(LoginActivity.this);
+        if(mail != null){
+            email.setText((String) mail);
         }
 
         loginButton.setOnClickListener(new View.OnClickListener() {

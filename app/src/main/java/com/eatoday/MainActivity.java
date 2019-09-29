@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         if (intent.hasExtra("getRequest")){
             get = getIntent().getStringExtra("getRequest");
         }
+
         CountDownLatch latch = new CountDownLatch(1);
         RecipeLoader recipeLoader = new RecipeLoader((Context) MainActivity.this, latch);
         recipeLoader.execute(get);
@@ -83,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
 
     }
 

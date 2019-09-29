@@ -250,10 +250,11 @@ public class FilterActivity extends AppCompatActivity {
                 if(isVegetarian){
                     if(!get.equals("?")) get += "&";
                     get += Constant.TYPE + "vegetariano";
-                }
-                if(isVegan){
-                    if(!get.equals("?")) get += "&";
-                    get += Constant.TYPE + "vegano";
+                }else{
+                    if(isVegan){
+                        if(!get.equals("?")) get += "&";
+                        get += Constant.TYPE + "vegano";
+                    }
                 }
                 if(!difficulty.equals("")){
                     if(!get.equals("?")) get += "&";
