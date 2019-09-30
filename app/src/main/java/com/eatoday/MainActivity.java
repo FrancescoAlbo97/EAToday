@@ -9,7 +9,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
                 switch (menuItem.getItemId()){
                     case R.id.nav1:
                         menuItem.setChecked(true);
-                        displayMessage("ciao"+menuItem.getItemId());
+
                         drawerLayout.closeDrawers();
                         return true;
                     case R.id.nav2:
@@ -138,15 +140,25 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
                         return true;
                     case R.id.nav4:
                         menuItem.setChecked(true);
-                        displayMessage("ciao"+menuItem.getItemId());
+
                         drawerLayout.closeDrawers();
                         return true;
                     case R.id.nav5:
                         menuItem.setChecked(true);
-                        displayMessage("ciao"+menuItem.getItemId());
-                        PreferenceUtils.logout(getApplicationContext());
-                        Intent intentM = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intentM);
+                        AlertDialog.Builder builder = new AlertDialog.Builder (MainActivity.this);
+                        builder.setTitle("Logout");
+                        builder.setMessage("Sei sicuro di voler uscire?");
+                        builder.setPositiveButton("Sì", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                                PreferenceUtils.logout(getApplicationContext());
+                                Intent intentM = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intentM);
+                            }
+                        });
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
                         drawerLayout.closeDrawers();
                         return true;
                 }
@@ -209,6 +221,5 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         Intent intent = new Intent(MainActivity.this, DetailsActivity.class );
         intent.putExtra("recipeIndex", index);
         startActivity(intent);
-        Toast.makeText(this,"item selected" + RecipeCollection.recipesList.get(index).toString(),Toast.LENGTH_SHORT).show();
     }
 }

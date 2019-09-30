@@ -1,5 +1,7 @@
 package com.eatoday;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.eatoday.model.Ingredient;
 import com.eatoday.model.RecipeCollection;
+import com.eatoday.model.User;
+import com.eatoday.util.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +93,34 @@ public class DetailsActivity extends AppCompatActivity {
         btnOrd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                AlertDialog.Builder builder = new AlertDialog.Builder (DetailsActivity.this);
+                if( User.getIsLog()){
+                    builder.setTitle("Ordine pronto");
+                    builder.setMessage("Grazie per aver utilizzato EAToday!");
+                    builder.setPositiveButton("Home", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                            finish();
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                }else{
+                    builder.setTitle("Attezione");
+                    builder.setMessage("Per poter effettuare l'ordine bisogna effettuare il login.");
+                    builder.setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                            finish();
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                }
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
 

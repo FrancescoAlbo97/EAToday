@@ -103,7 +103,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         paramsBottom.height = 150;
         holder.linearLayoutBottom.setLayoutParams(paramsBottom);
 
-        if(position == (recipes.size() -1)){
+        if(position == 0){
+            holder.itemView.setPadding(0,0,0,0);
+        }
+        else if(position == (recipes.size() -1)){
             holder.itemView.setPadding(0,0,0,200);
         }
         /*
