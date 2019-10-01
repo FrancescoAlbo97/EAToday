@@ -31,7 +31,7 @@ public class Recipe {
     public Recipe(String name, String time, String difficulty, String type, String description, ArrayList<Ingredient> ingredients ) throws UnsupportedEncodingException {
         this.id = setId();
         this.name = name;
-        this.time = time  + " min";
+        this.time = time  + "  min";
         this.difficulty = difficulty;
         this.type = type;
         this.description = description;
@@ -87,7 +87,7 @@ public class Recipe {
             String s = ingredients.get(i).getPrice().replaceAll("€","").trim();
             sum += Float.parseFloat(s);
         }
-        return sum + " €";
+        return sum + "  €";
     }
 
     public String getType() {
