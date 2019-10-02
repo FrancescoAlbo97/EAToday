@@ -87,7 +87,7 @@ public class Recipe {
             String s = ingredients.get(i).getPrice().replaceAll("€","").trim();
             sum += Float.parseFloat(s);
         }
-        return sum + "  €";
+        return sum + "0  €";
     }
 
     public String getType() {

@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         CountDownLatch latch1 = new CountDownLatch(1);
         IngredientLoader ingredientLoader = new IngredientLoader((Context) MainActivity.this, latch1);
         ingredientLoader.execute();
-        ArrayList<Ingredient> ingredients = ingredientLoader.arrayList;
+        //ArrayList<Ingredient> ingredients = ingredientLoader.arrayList;
         try {
             latch1.await();
         } catch (InterruptedException e) {

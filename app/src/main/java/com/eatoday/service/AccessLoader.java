@@ -39,6 +39,7 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
         this.context = context;
         this.activity = (Activity) context;
         this.latch = latch;
+        builder = new AlertDialog.Builder(activity);
     }
 /*
     @Override
@@ -59,12 +60,16 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
 
                 URL url = new URL(Constant.URL_REGISTER);
                 String name = params[1];
-                String email = params[2];
-                String password = params[3];
+                String lastName = params[2];
+                String email = params[3];
+                String password = params[4];
+                String address = params[5];
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("name", name);
+                jsonObject.put("name", lastName);
+                jsonObject.put("lastName", name);
                 jsonObject.put("email", email);
                 jsonObject.put("password", password);
+                jsonObject.put("address", address);
                 String json = connectionResult(url, jsonObject);
                 if(onPost(json)){
                     PreferenceUtils.saveEmail(email, context);
@@ -89,8 +94,6 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
                 }
                 latch.countDown();
                 return json;
-                //{"user":{"name":"lollo","lastName":"scoppo","email":"lollo@gmail.com","password":"lollo","address":"via merendine"},"server_response":[{"code":"login_true","message":"Login success"}]}
-
             }
         } catch (MalformedURLException | JSONException e) {
             e.printStackTrace();
@@ -154,22 +157,12 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
             JSONArray jsonArray = jsonObject.getJSONArray("server_response");
             JSONObject newJsonObject = jsonArray.getJSONObject(0);
             String code = newJsonObject.getString("code");
-            String message = newJsonObject.getString("message");
+            //String message = newJsonObject.getString("message");
 
-            if (code.equals("register_true")){
-                showDialog("Registration success",message,code);
+            if (code.contains("true")){
                 return true;
             }
-            else if(code.equals("register_false")){
-                showDialog("Registration failed",message,code);
-                return false;
-            }
-            else if(code.equals("login_true")){
-                //showDialog("Login success",message,code);
-                return true;
-            }
-            else if(code.equals("login_false")){
-                showDialog("Login failed",message,code);
+            else {
                 return false;
             }
 
@@ -209,7 +202,7 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
             e.printStackTrace();
         }
     }*/
-
+/*
     private void showDialog(String title, String message, String code){
         builder.setTitle(title);
         builder.setMessage(message);
@@ -224,7 +217,7 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-    }
+    }*/
 
     private void saveUser(String json) throws JSONException {
         JSONObject jsonObject = new JSONObject(json);

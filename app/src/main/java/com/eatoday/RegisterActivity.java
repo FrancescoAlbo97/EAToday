@@ -22,7 +22,7 @@ import java.util.concurrent.CountDownLatch;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText name,email,password,password2;
+    private EditText name,lastName,email,password,password2,address;
     private Button registerButton;
     private DatabaseHelper databaseHelper = new DatabaseHelper(this);
     private PreferenceUtils utils = new PreferenceUtils();
@@ -34,14 +34,16 @@ public class RegisterActivity extends AppCompatActivity {
         setTitle(R.string.app_name);
 
         name = (EditText) findViewById(R.id.name_input);
+        lastName = (EditText) findViewById(R.id.last_name_input);
         email = (EditText) findViewById(R.id.email_input);
         password = (EditText) findViewById(R.id.password_input);
         password2 = (EditText) findViewById(R.id.password2_input);
+        address = (EditText) findViewById(R.id.address_input);
         registerButton = (Button) findViewById(R.id.btn_register);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(name.getText().toString().equals("") || email.getText().toString().equals("") || password.getText().toString().equals("") || password2.getText().toString().equals("")){
+                if(name.getText().toString().equals("") || lastName.getText().toString().equals("") || email.getText().toString().equals("") || password.getText().toString().equals("") || password2.getText().toString().equals("") || address.getText().toString().equals("")){
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     builder.setTitle("Something wrong...");
                     builder.setMessage("Fields can't be empty!");
@@ -72,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
                 else {
                     CountDownLatch latch = new CountDownLatch(1);
                     AccessLoader accessLoader = new AccessLoader((Context) RegisterActivity.this,latch);
-                    accessLoader.execute("register", name.getText().toString().trim(), email.getText().toString().trim(), password.getText().toString().trim());
+                    accessLoader.execute("register", name.getText().toString().trim(), lastName.getText().toString().trim(), email.getText().toString().trim(), password.getText().toString().trim(),  address.getText().toString().trim());
 
                     try {
                         latch.await();
