@@ -23,6 +23,7 @@ import com.eatoday.model.Ingredient;
 import com.eatoday.model.Recipe;
 import com.eatoday.model.RecipeCollection;
 import com.eatoday.model.User;
+import com.eatoday.service.AccessLoader;
 import com.eatoday.service.IngredientLoader;
 import com.eatoday.service.RecipeLoader;
 import com.eatoday.ui.recipes.RecipeAdapter;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
     private RecyclerView.Adapter myRecipeAdapter;
     private RecyclerView.LayoutManager layoutManagerRecipe;
     private SearchView searchView;
+    private String email,password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,20 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         setContentView(R.layout.activity_main);
 
         initSearchView();
+        Object mail = PreferenceUtils.getEmail(MainActivity.this);
+        Object pass = PreferenceUtils.getPassword(MainActivity.this);
+        if(mail != null || pass != null){
+            email = (String) mail;
+            password = (String) pass;
+            CountDownLatch latchInit = new CountDownLatch(1);
+            AccessLoader accessLoader = new AccessLoader((Context) MainActivity.this, latchInit);
+            accessLoader.execute("login", email, password);
+            try {
+                latchInit.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         initToolbar();
 
         recyclerViewRecipe = findViewById(R.id.list_details);
