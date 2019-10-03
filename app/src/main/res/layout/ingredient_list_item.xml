@@ -44,7 +44,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="X"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_font_info_recipe" />
 
             <!--android:padding="3dp"
                 android:background="@color/colorPrimaryLight"-->

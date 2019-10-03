@@ -109,8 +109,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingLeft="@dimen/fab_margin"
-                        android:text="rgwgwrg wr grw g wreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeevvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv g wr gwr g wr g wpppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppijjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjgfddddddddsdddddddddddddddddddddddd yye5y5ry6ye6u666666u uetuyr tttttttttttttttttttttttttttttttttttttttttttttttttttttttttyyyyyyyyyyyyyyyyyyyyyyyyyyyyyytttttttttttttttttttttttttttttttttttttrrrrrrrrrrrrrrrr" />
-
+                        android:text=""/>
                 </LinearLayout>
 
             </LinearLayout>

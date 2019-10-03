@@ -63,7 +63,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="aggiungi"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <TextView
@@ -100,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="ESCLUDI"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
