@@ -139,7 +139,8 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
                         return true;
                     case R.id.nav2:
                         if (User.getIsLog()){
-
+                            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                            startActivity(intent);
                         }else{
                             menuItem.setChecked(true);
                             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);

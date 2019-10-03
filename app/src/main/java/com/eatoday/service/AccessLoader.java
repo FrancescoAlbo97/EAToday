@@ -32,7 +32,7 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
     private AlertDialog.Builder builder;
     private ProgressBar progressBar;
     private CountDownLatch latch;
-    private User user;
+    private static User user;
 
 
     public AccessLoader(Context context, CountDownLatch latch) {
@@ -233,11 +233,9 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
         PreferenceUtils.savePassword(user.getPassword(), context);
     }
 
-    public User getUser() {
+    public static User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+    //public void setUser(User user) {this.user = user;}
 }
