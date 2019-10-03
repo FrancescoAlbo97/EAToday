@@ -157,7 +157,8 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
                         return true;
                     case R.id.nav4:
                         menuItem.setChecked(true);
-
+                        Intent intentP = new Intent(getApplicationContext(), ProjectActivity.class);
+                        startActivity(intentP);
                         drawerLayout.closeDrawers();
                         return true;
                     case R.id.nav5:

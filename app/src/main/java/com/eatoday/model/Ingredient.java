@@ -14,7 +14,7 @@ public class Ingredient {
         this.name = name;
         this.unit = unit;
         this.availability = availability;
-        this.price = price + "0 €";
+        this.price = price + " €";
         this.store = store;
     }
 

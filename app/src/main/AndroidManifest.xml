@@ -25,5 +25,6 @@
         <activity android:name=".DetailsActivity" android:label="Details"> </activity>
         <activity android:name=".FilterActivity" android:label="Filter"> </activity>
         <activity android:name=".ProfileActivity" android:label="Profile"> </activity>
+        <activity android:name=".ProjectActivity" android:label="Project"> </activity>
     </application>
 </manifest>

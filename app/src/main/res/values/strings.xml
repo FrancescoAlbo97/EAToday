@@ -13,4 +13,19 @@
     <string name="quali_ingredienti_vorresti_escludere">Quali ingredienti vorresti escludere?</string>
     <string name="filtra_titolo">Cosa vorresti preparare?</string>
     <string name="action_search">Cerca ricetta</string>
+    <string name="il_progetto">Come funziona EAToday</string>
+    <string name="project_description">EAToday è un’applicazione pensata per contrastare lo spreco alimentare, un pro-
+blema che, negli ultimi anni, sta dilagando e sta diventando sempre più serio.
+Quest’app nasce proprio con l’intento di cercare di dare un contributo positivo
+a questa situazione, combattendo lo spreco alimentare e sensibilizzando le persone
+sull’argomento. Per far ciò, l’idea che si trova alla base del progetto è quella di
+combinare i prodotti in scadenza di più punti vendita, in modo che possiate acquistarli e ricerveli comodamente a casa.
+        Questi prodotti vengono proposti nell’applicazione attraverso delle ricette, selezionate in modo mirato in base ai
+prodotti disponibili.</string>
+    <string name="first_question">Come posso ordinare i prodotti?</string>
+    <string name="first_answer">Ci sono due modi: o cerchi le ricette o le filtri</string>
+    <string name="second_question">Ma i prodotti non potrebbero essere scaduti?</string>
+    <string name="second_answer">Assolutamente no, sono prossimi alla scadenza, cosa ben diverse, è a questo che vogliamo educarvi</string>
+    <string name="third_question">Chi siamo?</string>
+    <string name="third_answer">ragazzi UNIVPM che hanno voglia di educare le persone</string>
 </resources>

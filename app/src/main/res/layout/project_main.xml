@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_margin="@dimen/fab_margin"
+        android:id="@+id/project_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/il_progetto"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="22dp"/>
+
+    <TextView
+        android:layout_margin="@dimen/paragraf"
+        android:id="@+id/project_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:textColor="@color/colorSecondaryText"
+        android:text="@string/project_description" />
+
+    <TextView
+        android:id="@+id/first_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/paragraf"
+        android:textSize="16dp"
+        android:text="@string/first_question"
+        android:textColor="@color/colorPrimaryText"/>
+
+    <TextView
+        android:id="@+id/first_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/paragraf"
+        android:text="@string/first_answer"
+        android:textColor="@color/colorSecondaryText"/>
+
+    <TextView
+        android:id="@+id/second_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:layout_margin="@dimen/paragraf"
+        android:text="@string/second_question"
+        android:textColor="@color/colorPrimaryText"/>
+
+    <TextView
+        android:id="@+id/second_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/paragraf"
+        android:text="@string/second_answer"
+        android:textColor="@color/colorSecondaryText"/>
+
+    <TextView
+        android:id="@+id/third_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:layout_margin="@dimen/paragraf"
+        android:text="@string/third_question"
+        android:textColor="@color/colorPrimaryText"/>
+
+    <TextView
+        android:id="@+id/third_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/paragraf"
+        android:text="@string/third_answer"
+        android:textColor="@color/colorSecondaryText"/>
+
+</LinearLayout>
