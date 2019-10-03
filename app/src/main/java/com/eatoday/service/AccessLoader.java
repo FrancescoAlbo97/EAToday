@@ -222,15 +222,14 @@ public class AccessLoader extends AsyncTask<String, Void, String> {
     private void saveUser(String json) throws JSONException {
         JSONObject jsonObject = new JSONObject(json);
         JSONObject userJson = jsonObject.getJSONObject("user");
-        user = new User(
-                userJson.getString("name"),
-                userJson.getString("lastName"),
-                userJson.getString("email"),
-                userJson.getString("password"),
-                userJson.getString("address")
-                );
-        PreferenceUtils.saveEmail(user.getEmail(), context);
-        PreferenceUtils.savePassword(user.getPassword(), context);
+        User.setName(userJson.getString("name"));
+        User.setLastName(userJson.getString("lastName"));
+        User.setLastName(userJson.getString("email"));
+        User.setPassword(userJson.getString("password"));
+        User.setAddress(userJson.getString("address"));
+        User.setIsLog(true);
+        PreferenceUtils.saveEmail(User.getEmail(), context);
+        PreferenceUtils.savePassword(User.getPassword(), context);
     }
 
     public static User getUser() {
