@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,16 +38,27 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView tvIngredientName;
+        TextView tvIngredientDescription;
+        ImageView showDetails;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             tvIngredientName = itemView.findViewById(R.id.tvIngredientName);
+            tvIngredientDescription = itemView.findViewById(R.id.ingredient_description);
+            showDetails = itemView.findViewById(R.id.show_ingredient_details);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     activity.onItemClicked(ingredients.indexOf((Ingredient) view.getTag()));
+                    if(tvIngredientDescription.getVisibility() == View.VISIBLE){
+                        tvIngredientDescription.setVisibility(View.GONE);
+                        showDetails.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
+                    }else{
+                        tvIngredientDescription.setVisibility(View.VISIBLE);
+                        showDetails.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
+                    }
                 }
             });
         }
@@ -63,6 +75,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
         Ingredient ingredient = ingredients.get(position);
         holder.itemView.setTag(ingredient);
         holder.tvIngredientName.setText(ingredient.getName());
+        holder.tvIngredientDescription.setText(ingredient.getDescriptionToString());
     }
 
     @Override

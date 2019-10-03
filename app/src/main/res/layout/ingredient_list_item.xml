@@ -28,7 +28,7 @@
             <TextView
                 android:id="@+id/tvIngredientName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:paddingStart="@dimen/fab_margin"
                 android:text="Ciaooo"
@@ -37,13 +37,13 @@
                 android:textSize="@dimen/size_font_info_recipe"
                 android:textStyle="italic" />
 
-            <Button
-                android:id="@+id/btn_delete_ingredient"
+            <ImageView
+                android:id="@+id/show_ingredient_details"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="X"
+                android:background="@drawable/ic_keyboard_arrow_down_black_24dp"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/size_font_info_recipe" />
 
@@ -53,4 +53,16 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/ingredient_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingStart="@dimen/fab_margin"
+        android:textAlignment="center"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        android:visibility="gone" />
 </LinearLayout>

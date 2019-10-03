@@ -14,7 +14,7 @@ public class Ingredient {
         this.name = name;
         this.unit = unit;
         this.availability = availability;
-        this.price = price;
+        this.price = price + "0 €";
         this.store = store;
     }
 
@@ -68,6 +68,10 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return "Ingrediente: " + name + '\'' + ", del " + store;
+        return name + " " + store;
+    }
+
+    public String getDescriptionToString(){
+        return "Al costo di " + price + "\nper "+ unit + " di " + name + "\npresso il " + store;
     }
 }

@@ -65,12 +65,13 @@
                         android:textAlignment="textStart"
                         android:textSize="18sp" />
 
-                    <ListView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/list_ingredients"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/fab_margin"
-                        android:paddingStart="@dimen/fab_margin" />
+                        android:paddingStart="@dimen/fab_margin"/>
+
                 </LinearLayout>
             </LinearLayout>
 

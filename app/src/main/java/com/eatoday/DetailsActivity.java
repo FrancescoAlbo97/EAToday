@@ -1,6 +1,7 @@
 package com.eatoday;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,27 +13,35 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.eatoday.model.Ingredient;
 import com.eatoday.model.RecipeCollection;
 import com.eatoday.model.User;
+import com.eatoday.ui.recipes.IngredientAdapter;
 import com.eatoday.util.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailsActivity extends AppCompatActivity {
+public class DetailsActivity extends AppCompatActivity implements IngredientAdapter.ItemClicked {
 
-    private ListView listViewIngredient;
+    //private ListView listViewIngredient;
     private ImageView ivImageRecipe;
     private TextView tvName;
     private TextView description;
     private Button btnBack;
     private Button btnOrd;
     private int index;
+    private RecyclerView recyclerViewIngredient;
+    private RecyclerView.Adapter myIngredientAdapter;
+    private RecyclerView.LayoutManager layoutManagerIngredient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +55,7 @@ public class DetailsActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btn_back);
         btnOrd = findViewById(R.id.btn_ord);
 
+        ArrayList<Ingredient> ingredients = new ArrayList<>();
         Intent intent = getIntent();
         if (intent.hasExtra("recipeIndex")) {
             index = getIntent().getIntExtra("recipeIndex",0);
@@ -55,7 +65,16 @@ public class DetailsActivity extends AppCompatActivity {
                     .placeholder(R.drawable.ic_broken_image_black_24dp)
                     .into(ivImageRecipe);
             description.setText(RecipeCollection.recipesList.get(index).getDescription());
+            ingredients = RecipeCollection.recipesList.get(index).getIngredients();
         }
+
+        recyclerViewIngredient = findViewById(R.id.list_ingredients);
+        recyclerViewIngredient.setHasFixedSize(true);
+        layoutManagerIngredient = new LinearLayoutManager(this);
+        recyclerViewIngredient.setLayoutManager(layoutManagerIngredient);
+        myIngredientAdapter = new IngredientAdapter(this,(Context) DetailsActivity.this, ingredients);
+        recyclerViewIngredient.setAdapter(myIngredientAdapter);
+
         ViewGroup.LayoutParams layoutParams = ivImageRecipe.getLayoutParams();
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -63,6 +82,9 @@ public class DetailsActivity extends AppCompatActivity {
         layoutParams.height = heigh;
         ivImageRecipe.setLayoutParams(layoutParams);
 
+
+
+/*
         listViewIngredient = findViewById(R.id.list_ingredients);
 
 
@@ -92,7 +114,7 @@ public class DetailsActivity extends AppCompatActivity {
         listViewIngredient.setScrollContainer(false);
 
         adapter.notifyDataSetChanged();
-
+*/
 
         btnOrd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,4 +170,8 @@ public class DetailsActivity extends AppCompatActivity {
 */
     }
 
+    @Override
+    public void onItemClicked(int index) {
+
+    }
 }
