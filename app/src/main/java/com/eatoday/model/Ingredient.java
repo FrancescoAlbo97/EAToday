@@ -1,5 +1,7 @@
 package com.eatoday.model;
 
+import java.text.DecimalFormat;
+
 public class Ingredient {
 
     private int id;
@@ -14,7 +16,7 @@ public class Ingredient {
         this.name = name;
         this.unit = unit;
         this.availability = availability;
-        this.price = price + " €";
+        this.price = setPriceValue(price);
         this.store = store;
     }
 
@@ -56,6 +58,12 @@ public class Ingredient {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    private String setPriceValue(String price) {
+        float p = Float.parseFloat(price);
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        return decimalFormat.format(p) + " €";
     }
 
     public String getStore() {

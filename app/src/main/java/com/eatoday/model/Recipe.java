@@ -3,6 +3,7 @@ package com.eatoday.model;
 import com.eatoday.util.Constant;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Recipe {
@@ -81,13 +82,15 @@ public class Recipe {
     public void setPrice(String price) {
         this.price = price;
     }
+
     private String setPrice(ArrayList<Ingredient> ingredients){
         float sum = 0;
         for (int i=0; i < ingredients.size(); i++){
             String s = ingredients.get(i).getPrice().replaceAll("€","").trim();
             sum += Float.parseFloat(s);
         }
-        return sum + "0  €";
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        return decimalFormat.format(sum) + " €";
     }
 
     public String getType() {

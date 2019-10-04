@@ -128,13 +128,13 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         }
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
                 switch (menuItem.getItemId()){
                     case R.id.nav1:
                         menuItem.setChecked(true);
-
                         drawerLayout.closeDrawers();
                         return true;
                     case R.id.nav2:
@@ -179,11 +179,24 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
                         alertDialog.show();
                         drawerLayout.closeDrawers();
                         return true;
+                    case R.id.nav6:
+                        menuItem.setChecked(true);
+                        drawerLayout.closeDrawers();
+                        return true;
                 }
                 return false;
             }
+
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        for (int i = 0; i < navigationView.getMenu().size(); i++) {
+            navigationView.getMenu().getItem(i).setChecked(false);
+        }
     }
 
     private void initSearchView(){

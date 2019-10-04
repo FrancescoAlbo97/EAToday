@@ -20,6 +20,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.eatoday.model.Ingredient;
 import com.eatoday.model.RecipeCollection;
@@ -77,7 +79,6 @@ public class FilterActivity extends AppCompatActivity {
         idNO = new ArrayList<>();
         listIngredientsOK = new ArrayList<>();
         listIngredientsNO = new ArrayList<>();
-
 
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
