@@ -3,6 +3,7 @@ package com.eatoday;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -20,11 +21,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eatoday.model.Ingredient;
 import com.eatoday.model.RecipeCollection;
+import com.eatoday.ui.recipes.IngredientAdapter;
+import com.eatoday.ui.recipes.StringAdapter;
 import com.eatoday.util.Constant;
 
 import java.util.ArrayList;
@@ -33,10 +37,10 @@ import java.util.Iterator;
 
 public class FilterActivity extends AppCompatActivity {
 
-    private ListView listViewOK;
+    private RecyclerView listViewOK;
     private EditText ingredientOK;
     private Button btnOK;
-    private ListView listViewNO;
+    private RecyclerView listViewNO;
     private EditText ingredientNO;
     private Button btnNO;
     private Button btnBack;
@@ -52,6 +56,7 @@ public class FilterActivity extends AppCompatActivity {
     private ArrayList<Integer> ids;
     private ArrayList<Integer> idOK;
     private ArrayList<Integer> idNO;
+    private StringAdapter myAdapter;
 
 
 
@@ -91,6 +96,7 @@ public class FilterActivity extends AppCompatActivity {
                         ids.add(in.getId());
                     }
                 }
+
                 final ArrayAdapter< String > adapter = new ArrayAdapter < String >
                         (FilterActivity.this, android.R.layout.simple_list_item_1,
                                 list);
@@ -115,7 +121,6 @@ public class FilterActivity extends AppCompatActivity {
                     builder.setAdapter(adapter,listener);
                     AlertDialog alertDialog = builder.create();
                     ListView listView = alertDialog.getListView();
-                    listView.setDividerHeight(listView.getScrollBarSize());
                     listView.setEnabled(true);
                     alertDialog.setView(listView);
                     alertDialog.show();
@@ -134,6 +139,7 @@ public class FilterActivity extends AppCompatActivity {
                         ids.add(in.getId());
                     }
                 }
+
                 final ArrayAdapter< String > adapter = new ArrayAdapter < String >
                         (FilterActivity.this, android.R.layout.simple_list_item_1,
                                 list);
@@ -158,7 +164,6 @@ public class FilterActivity extends AppCompatActivity {
                     builder.setAdapter(adapter,listener);
                     AlertDialog alertDialog = builder.create();
                     ListView listView = alertDialog.getListView();
-                    listView.setDividerHeight(listView.getScrollBarSize());
                     listView.setEnabled(true);
                     alertDialog.setView(listView);
                     alertDialog.show();
@@ -269,6 +274,50 @@ public class FilterActivity extends AppCompatActivity {
     }
 
 
+    ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+
+            String name = myAdapter.getString(viewHolder.getAdapterPosition());
+            for(int i = 0; i < listIngredientsOK.size(); i++){
+                if(listIngredientsOK.get(i).equals(name)){
+                    listIngredientsOK.remove(i);
+                    idOK.remove(i);
+                }
+            }
+            for(int i = 0; i < listIngredientsNO.size(); i++){
+                if(listIngredientsNO.get(i).equals(name)){
+                    listIngredientsNO.remove(i);
+                    idNO.remove(i);
+                }
+            }
+            myAdapter.notifyDataSetChanged();
+        }
+    });
+
+
+
+    private void addToListView(RecyclerView listView, ArrayList<String> listElements){
+
+        listView.setLayoutManager(new GridLayoutManager(FilterActivity.this, 1));
+        myAdapter = new StringAdapter(FilterActivity.this, FilterActivity.this, listElements);
+        listView.setAdapter(myAdapter);
+
+        itemTouchHelper.attachToRecyclerView(listView);
+
+        listView.setScrollContainer(false);
+
+        myAdapter.notifyDataSetChanged();
+        ingredientOK.getText().clear();
+        ingredientNO.getText().clear();
+    }
+
+    /*
     private void addToListView(ListView listView, ArrayList<String> listElements){
 
         final ArrayAdapter< String > adapter = new ArrayAdapter < String >
@@ -295,5 +344,6 @@ public class FilterActivity extends AppCompatActivity {
         ingredientOK.getText().clear();
         ingredientNO.getText().clear();
     }
+    */
 
 }

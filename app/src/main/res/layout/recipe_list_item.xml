@@ -29,13 +29,14 @@
                 android:id="@+id/tvRecipeName"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:layout_marginTop="@dimen/paragraf"
+                android:layout_marginBottom="@dimen/paragraf"
+                android:layout_weight="1"
                 android:paddingStart="@dimen/fab_margin"
                 android:textAlignment="textStart"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="22sp"
-                android:textStyle="bold|italic" />
+                android:textStyle="italic" />
 
             <ImageView
                 android:id="@+id/ivImageRecipe"
