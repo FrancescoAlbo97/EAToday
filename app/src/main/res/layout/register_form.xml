@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="20dp"
-        android:text="Name"/>
+        android:text="Nome"/>
     <EditText
         android:id="@+id/name_input"
         android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
-        android:text="Last Name"/>
+        android:text="Cognome"/>
     <EditText
         android:id="@+id/last_name_input"
         android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
         android:id="@+id/password2_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Confirm password"
+        android:text="Conferma password"
         android:layout_marginLeft="100dp" />
     <EditText
         android:id="@+id/password2_input"
@@ -83,25 +83,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
-        android:text="Address"/>
+        android:text="Indirizzo"/>
     <EditText
         android:id="@+id/address_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
         android:ems="10"/>
+
     <Button
         android:id="@+id/btn_register"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="20dp"
-        android:text="Sign up" />
+        android:text="registrati" />
     <TextView android:id="@+id/login_link"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Already Registered? Login here"
+        android:text="Sei già registrato? Clicca qui."
         android:gravity="center"
         android:textSize="20dp"
         android:textColor="@color/colorSecondaryText"/>
