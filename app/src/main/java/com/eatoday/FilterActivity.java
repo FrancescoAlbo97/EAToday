@@ -3,16 +3,13 @@ package com.eatoday;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -27,12 +24,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eatoday.model.Ingredient;
 import com.eatoday.model.RecipeCollection;
-import com.eatoday.ui.recipes.IngredientAdapter;
 import com.eatoday.ui.recipes.StringAdapter;
 import com.eatoday.util.Constant;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+
 
 
 public class FilterActivity extends AppCompatActivity {
