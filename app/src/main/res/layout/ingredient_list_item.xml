@@ -11,12 +11,13 @@
 
     <androidx.cardview.widget.CardView
         app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="3dp"
-        app:cardElevation="1dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
         app:cardUseCompatPadding="false"
         app:cardPreventCornerOverlap="false"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/paragraf">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,7 +33,7 @@
                 android:layout_weight="1"
                 android:paddingStart="@dimen/fab_margin"
                 android:text="Ciaooo"
-                android:textAlignment="textStart"
+                android:gravity="center_vertical|left"
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="@dimen/size_font_info_recipe"
                 android:textStyle="italic" />

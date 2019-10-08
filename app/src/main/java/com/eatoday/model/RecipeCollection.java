@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class RecipeCollection {
     public static ArrayList<Recipe> recipesList;
+    public static ArrayList<Recipe> startRecipesList;
     public static ArrayList<Ingredient> ingredientsList;
 
     public static ArrayList<Recipe> searchRecipesByName(String s){

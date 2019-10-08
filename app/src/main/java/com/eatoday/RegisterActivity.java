@@ -13,10 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.eatoday.helper.DatabaseHelper;
 import com.eatoday.service.AccessLoader;
-import com.eatoday.util.Constant;
-import com.eatoday.util.PreferenceUtils;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -24,8 +21,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText name,lastName,email,password,password2,address;
     private Button registerButton;
-    private DatabaseHelper databaseHelper = new DatabaseHelper(this);
-    private PreferenceUtils utils = new PreferenceUtils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

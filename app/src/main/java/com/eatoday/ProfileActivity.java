@@ -1,30 +1,21 @@
 package com.eatoday;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.eatoday.helper.DatabaseHelper;
 import com.eatoday.service.AccessLoader;
-import com.eatoday.util.PreferenceUtils;
-
-import java.util.concurrent.CountDownLatch;
 
 public class ProfileActivity extends AppCompatActivity {
 
     private EditText name,lastName,email,password,password2,address;
     private Button updateButton;
-    private DatabaseHelper databaseHelper = new DatabaseHelper(this);
-    private PreferenceUtils utils = new PreferenceUtils();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

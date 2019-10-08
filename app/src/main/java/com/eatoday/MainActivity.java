@@ -13,14 +13,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.eatoday.model.Ingredient;
 import com.eatoday.model.Recipe;
 import com.eatoday.model.RecipeCollection;
 import com.eatoday.model.User;
@@ -29,7 +26,6 @@ import com.eatoday.service.IngredientLoader;
 import com.eatoday.service.RecipeLoader;
 import com.eatoday.ui.recipes.RecipeAdapter;
 
-import com.eatoday.util.Constant;
 import com.eatoday.util.PreferenceUtils;
 import com.google.android.material.navigation.NavigationView;
 
@@ -93,11 +89,13 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
 
         myRecipeAdapter = new RecipeAdapter(this,(Context) MainActivity.this, RecipeCollection.recipesList);
         recyclerViewRecipe.setAdapter(myRecipeAdapter);
+        if (!intent.hasExtra("getRequest")){
+            RecipeCollection.startRecipesList = RecipeCollection.recipesList;
+        }
 
         CountDownLatch latch1 = new CountDownLatch(1);
         IngredientLoader ingredientLoader = new IngredientLoader((Context) MainActivity.this, latch1);
         ingredientLoader.execute();
-        //ArrayList<Ingredient> ingredients = ingredientLoader.arrayList;
         try {
             latch1.await();
         } catch (InterruptedException e) {
@@ -189,7 +187,6 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
             }
 
         });
-
     }
 
     @Override
@@ -203,12 +200,12 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
     private void initSearchView(){
         searchView = findViewById(R.id.search_by_name);
         searchView.setQueryHint("Cerca tra le ricette...");
-        //searchView.expandActionView();
         searchView.setBackgroundResource(R.drawable.search);
         arrayListOnSearch = new ArrayList<>();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String text) {
+                if(text.equals(""))RecipeCollection.recipesList = RecipeCollection.startRecipesList;
                 ArrayList<Recipe> arrayList = RecipeCollection.searchRecipesByName(text);
                 if (!arrayListOnSearch.equals(arrayList)){
                     myRecipeAdapter = new RecipeAdapter(MainActivity.this,(Context) MainActivity.this,arrayList);
@@ -216,12 +213,14 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
                     myRecipeAdapter.notifyDataSetChanged();
                     arrayListOnSearch.clear();
                     arrayListOnSearch = arrayList;
+                    RecipeCollection.recipesList=arrayListOnSearch;
                 }
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String text) {
+                if(text.equals(""))RecipeCollection.recipesList = RecipeCollection.startRecipesList;
                 ArrayList<Recipe> arrayList = RecipeCollection.searchRecipesByName(text);
                 if (!arrayListOnSearch.equals(arrayList)){
                     myRecipeAdapter = new RecipeAdapter(MainActivity.this,(Context) MainActivity.this,arrayList);
@@ -229,6 +228,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
                     myRecipeAdapter.notifyDataSetChanged();
                     arrayListOnSearch.clear();
                     arrayListOnSearch = arrayList;
+                    RecipeCollection.recipesList=arrayListOnSearch;
                 }
                 return false;
             }
@@ -253,5 +253,11 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         Intent intent = new Intent(MainActivity.this, DetailsActivity.class );
         intent.putExtra("recipeIndex", index);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        RecipeCollection.recipesList = RecipeCollection.startRecipesList;
+        super.onBackPressed();
     }
 }

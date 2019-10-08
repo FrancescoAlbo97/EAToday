@@ -1,6 +1,5 @@
 package com.eatoday;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,8 +14,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.eatoday.model.User;
 import com.eatoday.service.AccessLoader;
-import com.eatoday.util.Constant;
 import com.eatoday.util.PreferenceUtils;
 
 
@@ -67,8 +66,14 @@ public class LoginActivity extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                    startActivity(intent);
+                    if(User.getIsLog()){
+                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(LoginActivity.this,"Login fallito, riprovare",Toast.LENGTH_SHORT).show();
+                        email.setText("");
+                        password.setText("");
+                    }
                 }
             }
         });
@@ -83,11 +88,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    private void emptyInputEditText(){
-        email.setText(null);
-        password.setText(null);
     }
 
 }
